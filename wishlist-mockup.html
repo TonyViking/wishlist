@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#a02828">
+<title>Wishlist — Interactive Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#f4ead6; --cream-dark:#e8dcc0; --paper:#fdf7e8;
+  --ink:#2b2418; --ink-soft:#6b5a42;
+  --burgundy:#a02828; --burgundy-deep:#7a1818; --burgundy-soft:#c44545;
+  --brass:#b8893a; --brass-light:#d4a85a;
+  --sage:#7a8970; --rose:#c87a7a;
+  --pen-blue:#3a4a8c; --rule-blue:#9bb0d8; --margin-red:#c45050;
+  --shadow:rgba(42,31,26,0.12); --shadow-deep:rgba(42,31,26,0.25);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --tab-bar-h: calc(64px + var(--safe-bottom));
+  --top-bar-h: 56px;
+}
+
+/* ============== DARK MODE — Blueprint / Engineer ============== */
+.dark-mode {
+  --cream:#0a2540;
+  --cream-dark:#143257;
+  --paper:#0f2a4a;
+  --ink:#f0f6ff;
+  --ink-soft:#9fb8d8;
+  --burgundy:#4ec9ff;
+  --burgundy-deep:#2d9ed8;
+  --burgundy-soft:#7dd4ff;
+  --brass:#e8a838;
+  --brass-light:#f5c668;
+  --sage:#7dd4ff;
+  --rose:#ff9cb0;
+  --pen-blue:#f0f6ff;
+  --rule-blue:rgba(255,255,255,0.08);
+  --margin-red:#e8a838;
+  --shadow:rgba(0,0,0,0.5);
+  --shadow-deep:rgba(0,0,0,0.7);
+}
+.dark-mode{background:#0a2540}
+
+/* Hdr in dark mode is transparent */
+.dark-mode .hdr{
+  background:transparent;
+  border-bottom:1px solid rgba(125,212,255,0.12);
+}
+
+/* Hero in dark mode — blueprint title block with grid */
+.dark-mode .hero{
+  background:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px) 0 0 / 24px 100%,
+    linear-gradient(135deg, var(--burgundy-deep) 0%, var(--cream) 100%) !important;
+  border-bottom:2px solid var(--burgundy);
+}
+
+/* Modals as blueprint cards */
+.dark-mode .modal{
+  background:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 24px 100%,
+    #0c2240;
+  border:1px solid rgba(125,212,255,0.2);
+}
+
+/* Stat tiles in dark mode */
+.dark-mode .sc{
+  background:linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 100% 24px,
+             linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 24px 100%,
+             #0c2240;
+  border:1px solid rgba(125,212,255,0.18);
+}
+.dark-mode .sc-num{color:var(--brass);font-family:'Fraunces',serif}
+
+/* Banners as drafting notes */
+.dark-mode .banner{
+  background:rgba(125,212,255,0.06);
+  border-color:var(--burgundy);
+  border-left-color:var(--burgundy);
+}
+.dark-mode .banner strong{color:var(--burgundy)}
+.dark-mode .banner.success{border-color:#7de8a0;border-left-color:#7de8a0}
+.dark-mode .banner.success strong{color:#7de8a0}
+
+/* Inputs as drafting fields */
+.dark-mode .fg input,.dark-mode .fg select,.dark-mode .fg textarea{
+  background:rgba(255,255,255,0.04);
+  border-color:rgba(125,212,255,0.2);
+  color:var(--ink);
+}
+.dark-mode .fg input:focus,.dark-mode .fg select:focus,.dark-mode .fg textarea:focus{
+  background:rgba(255,255,255,0.08);
+  border-color:var(--burgundy);
+}
+.dark-mode .fg label{color:var(--burgundy);letter-spacing:.22em}
+
+/* Section labels — blueprint annotations */
+.dark-mode .section-label{color:var(--brass)}
+.dark-mode .section-label::after{background:rgba(125,212,255,0.2)}
+
+/* Title in dark blueprint */
+.dark-mode .title em{color:var(--burgundy);text-shadow:0 0 12px rgba(78,201,255,0.3)}
+
+/* Tab bar active state */
+.dark-mode .tab-item.active{color:var(--burgundy)}
+.dark-mode .tab-item.active::before{background:var(--burgundy);box-shadow:0 0 8px var(--burgundy)}
+
+/* Tag-event in dark, when not on notepad card */
+.dark-mode .tag-event{background:transparent;color:var(--brass);border-color:var(--brass)}
+
+/* Login text colours in dark blueprint */
+.dark-mode .login-logo h1{color:var(--burgundy);text-shadow:0 0 20px rgba(78,201,255,0.4)}
+.dark-mode .login-logo .subtitle{color:var(--brass)}
+
+/* Privacy options on blueprint */
+.dark-mode .privacy-opt{background:rgba(255,255,255,0.03);border-color:rgba(125,212,255,0.18)}
+.dark-mode .privacy-opt.sel{background:rgba(78,201,255,0.08);border-color:var(--burgundy);box-shadow:inset 3px 0 0 var(--burgundy)}
+
+/* Gift picker on blueprint */
+.dark-mode .gift-picker{background:rgba(255,255,255,0.03);border-color:rgba(125,212,255,0.18)}
+.dark-mode .gift-picker label{border-bottom-color:rgba(125,212,255,0.12)}
+
+/* Tabs in settings */
+.dark-mode .tabs{border-bottom-color:rgba(125,212,255,0.15)}
+.dark-mode .tab.active{color:var(--burgundy);border-bottom-color:var(--burgundy)}
+
+/* Toggle in dark */
+.dark-mode .toggle{background:rgba(255,255,255,0.1)}
+.dark-mode .toggle.on{background:var(--burgundy);box-shadow:0 0 8px rgba(78,201,255,0.4)}
+
+/* Toggle row borders */
+.dark-mode .toggle-row{border-bottom-color:rgba(125,212,255,0.12)}
+
+/* Stat dashed border */
+.dark-mode .ec-stats{border-top-color:rgba(125,212,255,0.18)}
+
+/* Mode toggle in settings */
+.dark-mode .mode-toggle{background:rgba(255,255,255,0.04);border-color:rgba(125,212,255,0.18)}
+.dark-mode .mode-btn.active{background:rgba(78,201,255,0.1);color:var(--burgundy);box-shadow:0 0 0 1px var(--burgundy)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{font-size:16px;overscroll-behavior:none;color-scheme:light}
+html{
+  background-color:#fdfcf3;
+  background-image:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.32) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px);
+}
+.dark-mode,.dark-mode html,.dark-mode body{color-scheme:dark}
+.dark-mode html{
+  background-color:#0a2540;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+}
+
+body{font-family:'Inter',sans-serif;color:var(--ink);min-height:100vh;line-height:24px;
+  background:transparent;
+  -webkit-font-smoothing:antialiased}
+
+/* Reusable paper backgrounds — applied to scrollable containers so paper scrolls WITH content.
+   Light: Santa-letter lined paper. Dark: architect's blueprint grid. */
+.paper-light{
+  background-color:#fdfcf3;
+  background-image:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.32) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px);
+  background-attachment:local;
+}
+.paper-dark{
+  background-color:#0a2540;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  background-attachment:local;
+}
+
+/* ============== LOGIN ============== */
+.login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;
+  background-color:#fdfcf3;
+}
+.dark-mode .login-screen{
+  background-color:#0a2540;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  background-attachment:local;
+}
+.login-card{
+  background-color:#fdfcf3;
+  background-image:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.32) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px);
+  border:1px solid rgba(196,80,80,.25);border-radius:8px;padding:48px 24px 48px 52px;max-width:420px;width:100%;
+  box-shadow:0 1px 0 rgba(196,80,80,.04), 0 12px 32px -16px rgba(0,0,0,.15);position:relative}
+.dark-mode .login-card{
+  background-color:#0c2240;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 24px 100%;
+  border-color:rgba(125,212,255,.3);box-shadow:0 0 0 1px rgba(125,212,255,.08) inset, 0 12px 32px -16px rgba(0,0,0,.5)}
+.login-card::before{content:'';position:absolute;inset:8px;border:1px solid var(--brass);border-radius:5px;pointer-events:none;opacity:.3}
+.login-logo{text-align:center;margin:0 0 24px;position:relative}
+.login-logo h1{font-family:'Fraunces',serif;font-weight:400;font-size:2.5rem;letter-spacing:-.02em;color:var(--burgundy);font-style:italic;line-height:48px;margin:0}
+.login-logo .subtitle{font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--brass);line-height:24px;margin:0}
+
+/* ============== FORM ============== */
+.fg{margin-bottom:24px}
+.fg label{display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);line-height:24px;margin:0;font-weight:500}
+.fg input,.fg select,.fg textarea{width:100%;padding:0 1rem;border:1px solid var(--cream-dark);background:transparent;border-radius:8px;font-family:inherit;font-size:1rem;color:var(--ink);transition:.2s;height:48px;line-height:48px;box-sizing:border-box}
+.fg textarea{height:auto;min-height:96px;padding:12px 1rem;line-height:24px;resize:vertical}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--burgundy);background:rgba(253,252,243,.4)}
+
+/* ============== BUTTONS ============== */
+.btn{padding:.95rem 1.5rem;background:var(--burgundy);color:var(--paper);border:none;font-family:inherit;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:.2s;border-radius:8px;min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+.btn:hover{background:var(--burgundy-deep)}
+.btn:active{transform:scale(0.98)}
+.btn-full{width:100%}
+.btn-ghost{padding:.7rem 1.1rem;background:transparent;border:1px solid var(--burgundy);color:var(--burgundy);font-family:inherit;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:8px;font-weight:500;transition:.15s;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-ghost:hover{background:var(--burgundy);color:var(--paper)}
+.btn-sm{padding:.5rem .85rem;background:transparent;border:1px solid var(--cream-dark);color:var(--ink-soft);font-family:inherit;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:6px;transition:.15s;min-height:36px;display:inline-flex;align-items:center;justify-content:center}
+.btn-sm:hover,.btn-sm:active{border-color:var(--burgundy);color:var(--burgundy)}
+.btn-sm.danger{border-color:var(--burgundy-soft);color:var(--burgundy-soft)}
+.btn-sm.active{border-color:var(--burgundy);color:var(--burgundy);background:var(--cream)}
+
+/* ============== APP SHELL (mobile-first) ============== */
+.app{display:none;min-height:100vh;flex-direction:column;background:transparent}
+.app.active{display:flex}
+
+/* Top bar */
+.topbar{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--cream-dark);
+  padding-top:var(--safe-top);height:calc(var(--top-bar-h) + var(--safe-top));
+  display:flex;align-items:center;justify-content:space-between;padding-left:1rem;padding-right:1rem;gap:.5rem}
+.topbar-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:500;font-style:italic;color:var(--burgundy);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar-back{display:none;background:none;border:none;color:var(--burgundy);font-size:1.25rem;cursor:pointer;padding:.4rem;min-width:36px}
+.topbar-back.show{display:flex;align-items:center;justify-content:center}
+.topbar-actions{display:flex;align-items:center;gap:.25rem}
+.icon-btn{background:none;border:none;color:var(--ink-soft);cursor:pointer;padding:.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;min-width:40px;min-height:40px;position:relative;transition:.15s}
+.icon-btn:hover,.icon-btn:active{background:var(--cream);color:var(--burgundy)}
+.icon-btn .dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--burgundy);border-radius:50%;border:2px solid var(--paper)}
+
+/* Main scroll area — paper scrolls WITH content (background-attachment: local) */
+.main{
+  flex:1;overflow-y:auto;padding-bottom:calc(var(--tab-bar-h) + 1rem);
+  -webkit-overflow-scrolling:touch;
+  background-color:#fdfcf3;
+  background-image:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.32) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px);
+  background-attachment:local;
+}
+.dark-mode .main{
+  background-color:#0a2540;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  background-attachment:local;
+}
+
+/* Bottom tab bar (primary mobile nav) */
+.tabbar{position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--cream-dark);z-index:90;
+  padding-bottom:var(--safe-bottom);box-shadow:0 -2px 20px -10px var(--shadow-deep)}
+.tabbar-inner{display:flex;align-items:stretch;height:64px}
+.tab-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;cursor:pointer;color:var(--ink-soft);transition:.15s;text-decoration:none;padding:.4rem .2rem;position:relative;font-size:.65rem;letter-spacing:.05em}
+.tab-item .ic{font-size:1.4rem;line-height:1}
+.tab-item:hover{color:var(--ink)}
+.tab-item.active{color:var(--burgundy)}
+.tab-item.active::before{content:'';position:absolute;top:0;left:25%;right:25%;height:3px;background:var(--burgundy);border-radius:0 0 3px 3px}
+.tab-badge{position:absolute;top:.4rem;right:30%;background:var(--burgundy);color:var(--paper);font-size:.6rem;padding:1px 6px;border-radius:10px;font-weight:600;min-width:18px;text-align:center;line-height:1.4}
+
+/* More menu drawer (for settings, howto) */
+.drawer{position:fixed;bottom:-100%;left:0;right:0;
+  background:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.28) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px),
+    #fdfcf3;
+  border-top-left-radius:16px;border-top-right-radius:16px;
+  box-shadow:0 -20px 60px -20px var(--shadow-deep);transition:bottom .3s ease;z-index:200;padding-bottom:var(--safe-bottom);max-height:80vh;overflow-y:auto}
+.dark-mode .drawer{
+  background:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 24px 100%,
+    #0c2240;
+  border-top:1px solid rgba(125,212,255,.2);
+}
+.drawer.open{bottom:0}
+.drawer-handle{display:block;width:40px;height:4px;background:rgba(196,80,80,.2);border-radius:2px;margin:.75rem auto .5rem}
+.dark-mode .drawer-handle{background:rgba(125,212,255,.2)}
+.drawer-content{padding:.5rem 1rem 1.5rem}
+.drawer-item{display:flex;align-items:center;gap:1rem;padding:1rem .5rem;border-bottom:1px solid rgba(196,80,80,.12);cursor:pointer;transition:.15s;background:transparent}
+.drawer-item:last-child{border-bottom:none}
+.drawer-item:active{background:rgba(160,40,40,.05)}
+.dark-mode .drawer-item{border-bottom-color:rgba(125,212,255,.12)}
+.dark-mode .drawer-item:active{background:rgba(78,201,255,.05)}
+.drawer-item .ic{font-size:1.4rem;width:28px;text-align:center;color:var(--burgundy)}
+.drawer-item .label{flex:1;font-size:1rem}
+.drawer-item .arrow{color:var(--ink-soft);font-size:1rem}
+
+/* ============== PAGE HEADER — 24px baseline grid ============== */
+.hdr{padding:24px 1.25rem;background:transparent}
+.title{font-family:'Fraunces',serif;font-size:2rem;font-weight:400;color:var(--ink);letter-spacing:-.02em;line-height:48px;margin:0}
+.title em{color:var(--burgundy);font-style:italic;font-weight:300}
+.subtitle{font-size:.85rem;color:var(--ink-soft);line-height:24px;margin:0}
+.actions{margin-top:24px;display:flex;gap:.5rem;flex-wrap:wrap}
+.actions .btn-ghost,.actions .btn-sm{height:48px}
+.content{padding:0 1.25rem 24px}
+
+/* ============== CARDS ============== */
+.card.notepad .ec-title{color:var(--pen-blue);font-style:italic}
+.card.notepad .ec-meta,.card.notepad .ec-stats{color:var(--pen-blue);opacity:.85}
+.card.notepad .ec-meta-item .ic,.card.notepad .stat strong{color:var(--margin-red)}
+.card.notepad .ec-stats{border-top-color:rgba(58,74,140,.18)}
+.card.notepad .tag-event{background:transparent;color:var(--margin-red);border-color:var(--margin-red)}
+.dark-mode .card.notepad .ec-title{color:var(--burgundy);font-style:italic;font-weight:500}
+.dark-mode .card.notepad .ec-meta,.dark-mode .card.notepad .ec-stats{color:var(--ink-soft);opacity:1}
+.dark-mode .card.notepad .ec-meta-item .ic{color:var(--burgundy)}
+.dark-mode .card.notepad .stat strong{color:var(--brass);font-family:'Fraunces',serif}
+.dark-mode .card.notepad .ec-stats{border-top:1px dashed rgba(125,212,255,.2)}
+.dark-mode .card.notepad .tag-event{background:transparent;color:var(--brass);border-color:var(--brass);letter-spacing:.25em}
+
+.card-stack{display:flex;flex-direction:column;gap:24px}
+.card{background:transparent;border:none;box-shadow:inset 0 0 0 1px rgba(196,80,80,.18);border-radius:10px;padding:24px 1.25rem;transition:.15s;position:relative;overflow:hidden}
+
+/* Santa-letter notepad paper — light mode event cards only */
+.card.notepad{
+  background:transparent;
+  padding:24px 1.25rem 24px 52px;
+  border:none;
+  box-shadow:inset 0 0 0 1px rgba(196,80,80,.18), 0 4px 12px -8px rgba(0,0,0,.08);
+  line-height:24px;
+}
+.card.notepad .ec-head{margin-bottom:0}
+.card.notepad .ec-meta{gap:0;line-height:24px}
+.card.notepad .ec-meta-item{line-height:24px;min-height:24px}
+.card.notepad .ec-stats{margin-top:0;padding-top:0;line-height:24px;border-top:none}
+.card.notepad .ec-title{line-height:24px}
+.card.notepad::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:14px;
+  background:linear-gradient(to bottom, rgba(0,0,0,.06), transparent);
+  pointer-events:none;
+}
+.dark-mode .card.notepad{
+  background:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px) 0 0 / 24px 100%,
+    #0c2240;
+  padding:24px 1.25rem 24px 1.5rem;
+  line-height:24px;
+  border:1px solid rgba(125,212,255,0.18);
+  box-shadow:0 0 0 1px rgba(125,212,255,0.05) inset, 0 8px 24px -12px rgba(0,0,0,.6);
+}
+.dark-mode .card.notepad .ec-head{margin-bottom:0}
+.dark-mode .card.notepad .ec-meta-item{line-height:24px;min-height:24px}
+.dark-mode .card.notepad .ec-stats{margin-top:0;padding-top:0;border-top:none}
+.dark-mode .card.notepad::after{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom, transparent, var(--burgundy) 50%, transparent);
+  opacity:.6;display:block;
+}
+.card.clickable{cursor:pointer}
+.card.clickable::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brass);opacity:0;transition:.15s}
+.card.clickable:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px var(--shadow);border-color:var(--brass)}
+.card.clickable:active{transform:scale(0.99)}
+.card.clickable:hover::before{opacity:1}
+
+.ec-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-bottom:0;line-height:24px;min-height:24px}
+.ec-title{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:500;line-height:24px;letter-spacing:-.01em;flex:1;min-width:0;margin:0}
+.tag-event{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:0 .6rem;border:1px solid var(--brass);color:var(--brass);border-radius:4px;background:transparent;flex-shrink:0;font-weight:500;white-space:nowrap;height:24px;line-height:22px;display:inline-flex;align-items:center}
+.ec-meta{display:flex;flex-direction:column;color:var(--ink-soft);font-size:.85rem;line-height:24px}
+.ec-meta-item{display:flex;align-items:center;gap:.6rem;line-height:24px;min-height:24px}
+.ec-meta-item .ic{color:var(--burgundy);width:14px;font-size:.85rem;flex-shrink:0}
+.ec-stats{display:flex;gap:1rem;margin-top:0;padding-top:0;border-top:none;flex-wrap:wrap;line-height:24px;min-height:24px}
+.stat{font-size:.78rem;color:var(--ink-soft)}
+.stat strong{color:var(--ink);font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;margin-right:.35rem}
+.stat .progress{color:var(--sage);font-weight:500}
+
+/* Gift card — mobile-first stacked */
+.gc{display:grid;grid-template-columns:64px 1fr;gap:1rem;align-items:start}
+.gimg{width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,var(--cream),var(--cream-dark));display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.ginfo{min-width:0}
+.ginfo h3{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;margin-bottom:.25rem;line-height:1.2}
+.ginfo p{font-size:.82rem;color:var(--ink-soft);line-height:1.4;margin-bottom:.5rem}
+.tags{display:flex;gap:.35rem;flex-wrap:wrap}
+.tag{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .5rem;background:var(--cream);color:var(--ink-soft);border-radius:4px;border:1px solid var(--cream-dark)}
+.tag.linked{color:var(--burgundy);border-color:var(--burgundy)}
+.tag.claimed{color:var(--sage);border-color:var(--sage)}
+.tag.partial{color:var(--brass);border-color:var(--brass)}
+.tag.removed{color:var(--burgundy-soft);border-color:var(--burgundy-soft)}
+
+/* HOSTING stamp — invoice/"PAID" style. Diagonal, slightly opaque, overlaid on card */
+.host-stamp{position:absolute;top:.85rem;right:.85rem;transform:rotate(-14deg);border:2px solid var(--burgundy);color:var(--burgundy);font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:.72rem;letter-spacing:.2em;padding:.2rem .65rem;border-radius:2px;opacity:.32;pointer-events:none;background:transparent;z-index:2;text-transform:uppercase;mix-blend-mode:multiply}
+.dark-mode .host-stamp{opacity:.55;mix-blend-mode:screen;border-color:#ff7a8c;color:#ff7a8c}
+
+/* Received gifts on wishlist — subtle differentiation */
+.card.received{border-left:3px solid var(--brass);padding-left:1rem}
+.dark-mode .card.received{border-left-color:var(--brass)}
+
+/* Past events — slight desaturation + remove button */
+.card.past{opacity:.78;transition:opacity .15s}
+.card.past:hover{opacity:1}
+.event-remove{position:absolute;top:.5rem;right:.5rem;background:transparent;border:1px solid var(--burgundy-soft);color:var(--burgundy-soft);width:28px;height:28px;border-radius:50%;font-size:.85rem;line-height:1;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit;transition:.15s}
+.event-remove:hover,.event-remove:active{background:var(--burgundy-soft);color:var(--paper)}
+.dark-mode .event-remove{border-color:#ff7a8c;color:#ff7a8c}
+.dark-mode .event-remove:hover{background:#ff7a8c;color:var(--cream)}
+/* invited cards have no stamp; identical layout to host cards otherwise */
+
+/* Clash warning */
+.clash-warn{background:transparent;border:none;box-shadow:inset 3px 0 0 var(--burgundy-soft), inset 0 0 0 1px rgba(196,46,46,0.2);padding:0 .75rem;border-radius:4px;font-size:.75rem;color:var(--burgundy-soft);margin-bottom:24px;display:flex;align-items:center;gap:.4rem;height:24px;line-height:24px}
+.clash-warn strong{font-weight:600}
+
+/* Gift already linked warning in picker */
+.gift-picker label.already-linked{position:relative}
+.gift-picker .already-tag{font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;padding:.1rem .4rem;border:1px solid var(--brass);color:var(--brass);border-radius:3px;background:var(--cream);margin-left:.4rem;flex-shrink:0}
+.gprice{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;padding-top:.6rem;border-top:1px dashed var(--cream-dark)}
+.gprice-amount{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--burgundy);font-weight:500}
+.gprice-amount small{font-family:'Inter';font-size:.7rem;color:var(--ink-soft);font-weight:400;margin-left:.4rem}
+
+/* Stat tiles */
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:0}
+.sc{background:transparent;border:none;box-shadow:inset 0 0 0 1px rgba(196,80,80,.18);padding:24px 1rem;border-radius:10px;cursor:pointer;transition:.15s}
+.sc:hover{border-color:var(--burgundy);transform:translateY(-1px)}
+.sc:active{transform:scale(0.98)}
+.sc-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);line-height:24px;margin:0}
+.sc-num{font-family:'Fraunces',serif;font-size:2rem;color:var(--burgundy);font-weight:400;line-height:48px;margin:0}
+.sc-meta{font-size:.72rem;color:var(--ink-soft);line-height:24px;margin:0}
+
+.section-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin:24px 0 0;font-weight:600;display:flex;align-items:center;gap:.75rem;line-height:24px;height:24px;padding-bottom:24px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--cream-dark)}
+.section-label:first-child{margin-top:0}
+
+/* Detail hero */
+.hero{color:var(--paper);padding:2rem 1.25rem;margin:-.5rem -1.25rem 1.25rem;position:relative;overflow:hidden;border-radius:0}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(212,168,90,.2),transparent 50%);pointer-events:none}
+.hero h1{font-family:'Fraunces',serif;font-size:2rem;font-weight:400;font-style:italic;margin-bottom:.5rem;position:relative;line-height:1.1}
+.hero .meta{display:flex;flex-direction:column;gap:.4rem;font-size:.85rem;opacity:.92;position:relative}
+
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+
+/* Privacy options */
+.privacy-opts{display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}
+.privacy-opt{border:1px solid var(--cream-dark);padding:.85rem 1rem;border-radius:8px;cursor:pointer;background:var(--cream);transition:.15s}
+.privacy-opt:active{transform:scale(0.99)}
+.privacy-opt.sel{border-color:var(--burgundy);background:var(--paper);box-shadow:inset 3px 0 0 var(--burgundy)}
+.privacy-opt strong{font-family:'Fraunces',serif;font-weight:500;display:block;margin-bottom:.2rem;font-size:1rem}
+.privacy-opt p{font-size:.78rem;color:var(--ink-soft)}
+
+/* Theme swatches */
+.swatches{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+
+/* Light/Dark mode toggle */
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;background:var(--cream);padding:.35rem;border-radius:10px;border:1px solid var(--cream-dark)}
+
+/* ============== SETTINGS — drill-down list ============== */
+.settings-list{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--cream-dark);border-radius:10px;overflow:hidden}
+.settings-row{display:flex;align-items:center;gap:.85rem;padding:1rem 1.1rem;cursor:pointer;border-bottom:1px solid var(--cream-dark);transition:background .15s;min-height:64px}
+.settings-row:last-child{border-bottom:none}
+.settings-row:hover{background:var(--cream)}
+.settings-row:active{background:var(--cream-dark)}
+.settings-ic{font-size:1.25rem;color:var(--burgundy);width:28px;text-align:center;flex-shrink:0}
+.settings-text{flex:1;min-width:0}
+.settings-label{font-size:1rem;font-weight:500;line-height:1.2;color:var(--ink);margin-bottom:.15rem}
+.settings-value{font-size:.78rem;color:var(--ink-soft);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.settings-arrow{color:var(--ink-soft);font-size:1.4rem;font-weight:300;flex-shrink:0;opacity:.6}
+
+.settings-detail-body{margin-bottom:2rem}
+.settings-detail-footer{position:sticky;bottom:0;background:var(--cream);padding:1rem 0 .5rem;margin-top:1.5rem;border-top:1px solid var(--cream-dark);display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.dark-mode .settings-detail-footer{background:transparent;border-top-color:rgba(125,212,255,0.15)}
+
+/* Polish settings-list in both themes */
+.dark-mode .settings-list{background:rgba(15,42,74,0.6);border-color:rgba(125,212,255,0.18)}
+.dark-mode .settings-row{border-bottom-color:rgba(125,212,255,0.12)}
+.dark-mode .settings-row:hover{background:rgba(125,212,255,0.05)}
+.dark-mode .settings-ic{color:var(--burgundy)}
+.mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1rem;background:transparent;border:none;font-family:inherit;font-size:.85rem;color:var(--ink-soft);cursor:pointer;border-radius:8px;transition:.15s;letter-spacing:.05em;font-weight:500;min-height:44px}
+.mode-btn:hover{color:var(--ink)}
+.mode-btn.active{background:var(--paper);color:var(--burgundy);box-shadow:0 2px 8px -2px var(--shadow);font-weight:600}
+.mode-btn .mode-ic{font-size:1.1rem}.sw{width:48px;height:48px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s;position:relative;flex-shrink:0}
+.sw:active{transform:scale(0.95)}
+.sw.sel{border-color:var(--ink);transform:scale(1.1)}
+.sw.sel::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem}
+.sw.locked::before{content:'🔒';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.95rem;background:rgba(0,0,0,.4);border-radius:50%;color:#fff}
+
+/* Fractions (mobile-friendly) */
+.frac-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:.75rem}
+.frac{padding:.65rem .5rem;border:1px solid var(--cream-dark);background:var(--paper);font-family:'Fraunces',serif;font-size:1rem;cursor:pointer;border-radius:6px;color:var(--ink);transition:.15s;min-height:42px}
+.frac:hover,.frac:active{border-color:var(--burgundy);color:var(--burgundy);background:var(--cream)}
+
+/* Gift picker */
+.gift-picker{border:1px solid var(--cream-dark);padding:.25rem .75rem;border-radius:8px;background:var(--cream);max-height:260px;overflow-y:auto}
+.gift-picker label{display:flex;align-items:center;gap:.7rem;padding:.7rem 0;cursor:pointer;font-size:.95rem;border-bottom:1px solid var(--cream-dark);min-height:48px}
+.gift-picker label:last-child{border-bottom:none}
+.gift-picker input[type=checkbox]{width:20px;height:20px;flex-shrink:0;accent-color:var(--burgundy)}
+.gift-picker .gp-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gift-picker .gp-price{color:var(--ink-soft);font-size:.78rem;flex-shrink:0}
+
+/* Settings tabs */
+.tabs{display:flex;border-bottom:1px solid var(--cream-dark);margin-bottom:1.5rem;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:.85rem 1rem;cursor:pointer;color:var(--ink-soft);font-size:.85rem;border-bottom:2px solid transparent;transition:.15s;margin-bottom:-1px;white-space:nowrap;flex-shrink:0}
+.tab.active{color:var(--burgundy);border-bottom-color:var(--burgundy);font-weight:500}
+
+/* Toggle rows */
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 0;border-bottom:1px solid var(--cream-dark);gap:1rem}
+.toggle-row:last-child{border-bottom:none}
+.toggle-row .info{flex:1;min-width:0}
+.toggle-row .info strong{display:block;margin-bottom:.2rem;font-weight:500;font-size:.92rem}
+.toggle-row .info p{font-size:.78rem;color:var(--ink-soft)}
+.toggle{width:48px;height:28px;background:var(--cream-dark);border-radius:14px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:var(--paper);border-radius:50%;transition:.2s;box-shadow:0 1px 3px var(--shadow)}
+.toggle.on{background:var(--burgundy)}
+.toggle.on::after{transform:translateX(20px)}
+
+/* Howto */
+.howto-step{display:grid;grid-template-columns:48px 1fr;gap:1rem;margin-bottom:2rem}
+.howto-num{font-family:'Fraunces',serif;font-size:2.2rem;color:var(--burgundy);font-style:italic;line-height:1;border-right:1px solid var(--brass);padding-right:.75rem;text-align:right}
+.howto-content h3{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:500;margin-bottom:.4rem}
+.howto-content p{color:var(--ink-soft);line-height:1.5;margin-bottom:.6rem;font-size:.92rem}
+.howto-content ul{list-style:none;padding:0}
+.howto-content li{padding-left:1.1rem;position:relative;font-size:.85rem;color:var(--ink-soft);margin-bottom:.35rem;line-height:1.4}
+.howto-content li::before{content:'◆';position:absolute;left:0;color:var(--brass);font-size:.55rem;top:.45rem}
+
+/* Banner */
+.banner{background:transparent;border:1px solid var(--brass);border-left:4px solid var(--brass);padding:24px 1rem;border-radius:6px;margin-bottom:24px;font-size:.85rem;line-height:24px}
+.banner strong{color:var(--burgundy)}
+.banner.success{border-color:var(--sage);border-left-color:var(--sage)}
+.banner.success strong{color:var(--sage)}
+.banner.warn{border-color:var(--burgundy-soft);border-left-color:var(--burgundy-soft)}
+.banner.warn strong{color:var(--burgundy-soft)}
+
+/* Modal — bottom sheet on mobile */
+.modal-bg{position:fixed;inset:0;background:rgba(42,31,26,.55);display:none;align-items:flex-end;justify-content:center;z-index:1000}
+.modal-bg.active{display:flex;animation:fadeIn .2s}
+.modal{background:var(--paper);width:100%;max-width:600px;max-height:90vh;overflow-y:auto;padding:1.5rem 1.25rem calc(1.5rem + var(--safe-bottom));
+  border-top-left-radius:16px;border-top-right-radius:16px;animation:slideUp .25s ease}
+.modal::before{content:'';display:block;width:40px;height:4px;background:var(--cream-dark);border-radius:2px;margin:0 auto 1rem}
+.modal h2{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:500;margin-bottom:.5rem;line-height:1.2}
+.modal p{color:var(--ink-soft);margin-bottom:1rem;font-size:.9rem;line-height:1.5}
+.modal-actions{display:flex;flex-direction:column;gap:.5rem;margin-top:1.25rem}
+.modal-actions .btn-sm{order:2;align-self:stretch;justify-content:center}
+.modal-actions .btn{order:1}
+.modal-actions.row-actions{flex-direction:row;flex-wrap:wrap;align-items:center}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+/* Notification panel — full screen on mobile */
+.notif-panel{position:fixed;top:0;right:-100%;width:100%;max-width:420px;height:100vh;background:var(--paper);
+  box-shadow:-10px 0 40px -10px var(--shadow-deep);transition:right .25s;z-index:500;overflow-y:auto;
+  padding-top:var(--safe-top);padding-bottom:var(--safe-bottom)}
+.notif-panel.open{right:0}
+.notif-head{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid var(--cream-dark);display:flex;justify-content:space-between;align-items:center}
+.notif-head h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:500}
+.notif-close{cursor:pointer;padding:.5rem;color:var(--ink-soft);border:none;background:none;font-size:1.4rem;min-width:40px;min-height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.notif-close:active{background:var(--cream)}
+.notif-item{padding:1rem 1.25rem;border-bottom:1px solid var(--cream-dark);cursor:pointer;transition:.15s}
+.notif-item:active{background:var(--cream)}
+.notif-item.unread{background:rgba(184,137,58,.06)}
+.notif-item .nt{font-weight:500;font-size:.9rem;margin-bottom:.25rem;line-height:1.3}
+.notif-item .nm{font-size:.75rem;color:var(--ink-soft)}
+
+/* Toast */
+.toast{position:fixed;bottom:calc(var(--tab-bar-h) + 1rem);left:50%;transform:translateX(-50%) translateY(40px);background:var(--ink);color:var(--paper);padding:.85rem 1.25rem;border-radius:6px;font-size:.85rem;z-index:2000;opacity:0;transition:.3s;box-shadow:0 10px 30px -10px var(--shadow-deep);max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* Test panel */
+/* Empty */
+.empty{text-align:center;padding:2.5rem 1.5rem;color:var(--ink-soft);background:var(--paper);border:1px dashed var(--cream-dark);border-radius:10px}
+.empty h3{font-family:'Fraunces',serif;font-size:1.25rem;margin-bottom:.5rem;color:var(--ink);font-weight:500}
+.empty p{font-size:.88rem;line-height:1.5;margin-bottom:1rem}
+
+a.link{color:var(--burgundy);text-decoration:none;cursor:pointer}
+a.link:active{opacity:.7}
+
+/* ============== SANTA LETTER — light mode global surfaces ============== */
+/* Topbar — transparent over body paper, slight opacity for content readability */
+.topbar{
+  background:rgba(253,252,243,0.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(196,80,80,.15);
+}
+/* Tabbar bottom nav — same translucent paper */
+.tabbar{
+  background:rgba(253,252,243,0.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-top:1px solid rgba(196,80,80,.15);
+}
+/* Page header sits flush on the paper */
+.hdr{background:transparent;border-bottom:1px solid rgba(196,80,80,.12)}
+/* Stat tiles — transparent so paper shows; just border + subtle shadow */
+.sc{
+  background:transparent;
+  border:1px solid rgba(196,80,80,.18);
+  box-shadow:0 2px 0 rgba(196,80,80,.03), 0 4px 12px -8px rgba(0,0,0,.06);
+}
+.sc-label{color:var(--margin-red);font-weight:600}
+.sc-num{color:var(--pen-blue);font-style:italic}
+.sc-meta{color:var(--ink-soft)}
+
+/* Hero — title block on letter, retains theme colour */
+.hero{
+  border-bottom:3px solid var(--burgundy);
+}
+.hero::after{
+  content:'';position:absolute;left:0;right:0;bottom:-7px;height:4px;
+  background:linear-gradient(to right, var(--brass) 0%, var(--brass) 50%, transparent 50%, transparent 60%, var(--brass) 60%, var(--brass) 75%, transparent 75%);
+  background-size:24px 4px;
+  background-repeat:repeat-x;
+  opacity:.4;
+}
+
+/* Modal — paper with red margin and rules built in (modal floats over a dark backdrop, so it needs its own paper) */
+.modal{
+  background:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.28) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px),
+    #fdfcf3;
+  border:1px solid rgba(196,80,80,.2);
+}
+.modal h2{color:var(--pen-blue);font-style:italic;padding-left:24px}
+.modal p{padding-left:24px}
+.modal .fg{padding-left:24px}
+.modal .modal-actions{padding-left:24px}
+
+/* Section labels — red ink margin annotations */
+.section-label{color:var(--margin-red);font-weight:700}
+.section-label::after{background:rgba(196,80,80,.25)}
+
+/* Banner — paper-tinted only */
+.banner{
+  background:transparent;
+  border-left-color:var(--margin-red);
+}
+.banner strong{color:var(--margin-red)}
+
+/* Page title pen-written feel */
+.title em{color:var(--burgundy)}
+
+/* Inputs — pen on paper */
+.fg input,.fg select,.fg textarea{
+  background:rgba(255,253,240,0.7);
+  border-color:#d6c898;
+  color:var(--pen-blue);
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-size:1.05rem;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(58,74,140,.4);font-style:italic}
+.fg label{color:var(--margin-red);font-weight:600}
+
+/* Settings tabs */
+.tabs{border-bottom-color:rgba(196,80,80,.2)}
+.tab.active{color:var(--margin-red);border-bottom-color:var(--margin-red)}
+
+/* Toggle */
+.toggle.on{background:var(--burgundy)}
+
+/* Privacy options */
+.privacy-opt{
+  background:rgba(255,253,240,0.6);
+  border-color:#d6c898;
+}
+.privacy-opt.sel{
+  background:#fdfcf3;
+  border-color:var(--burgundy);
+  box-shadow:inset 3px 0 0 var(--burgundy);
+}
+.privacy-opt strong{color:var(--pen-blue);font-style:italic}
+
+/* Gift picker on paper */
+.gift-picker{
+  background:rgba(255,253,240,0.6);
+  border-color:#d6c898;
+}
+.gift-picker label{border-bottom-color:rgba(155,176,216,.3)}
+
+/* Tab item icons */
+.tab-item.active{color:var(--margin-red)}
+.tab-item.active::before{background:var(--margin-red)}
+
+/* Login logo colours */
+.login-card::before{border-color:var(--burgundy);opacity:.4}
+.login-logo h1{color:var(--margin-red)}
+.login-logo .subtitle{color:var(--burgundy)}
+
+/* Stat numbers and meta items use pen colours by default */
+.stat strong{color:var(--pen-blue);font-style:italic}
+.stat .progress{color:var(--margin-red);font-weight:600}
+.ec-meta-item .ic{color:var(--margin-red)}
+
+/* Event detail body content */
+.ec-stats{border-top-color:rgba(58,74,140,.18)}
+
+/* Make remaining panels transparent in light mode so paper carries through */
+.settings-list{
+  background:transparent;
+  border:1px solid rgba(196,80,80,.2);
+  box-shadow:0 1px 0 rgba(196,80,80,.04), 0 4px 12px -8px rgba(0,0,0,.06);
+}
+.settings-row{border-bottom-color:rgba(196,80,80,.12)}
+.subscription-card{
+  background:transparent;
+  border:1px solid rgba(196,80,80,.2);
+}
+/* Generic .card (gift cards on detail screens etc.) — let body paper through */
+.card{
+  background:transparent;
+  border:none;
+  box-shadow:inset 0 0 0 1px rgba(196,80,80,.18);
+}
+
+/* Mode toggle */
+.mode-toggle{background:transparent;border-color:rgba(196,80,80,.2)}
+.mode-btn.active{background:rgba(160,40,40,.07);color:var(--margin-red)}
+.mode-btn .mode-ic{color:var(--burgundy)}
+
+/* Tier pill */
+.tier-pill,.tier-pill.paid{color:var(--margin-red);border-color:var(--margin-red);background:rgba(255,253,240,0.6)}
+.dark-mode .tier-pill,.dark-mode .tier-pill.paid{color:var(--brass);border-color:var(--brass);background:rgba(232,168,56,.08)}
+
+a.link{color:var(--burgundy);text-decoration:none;cursor:pointer}
+a.link:active{opacity:.7}
+
+.contact-row{background:transparent;padding:.85rem 1rem;border:1px solid rgba(196,80,80,.2);border-left:3px solid var(--brass);border-radius:8px;margin:.75rem 0;font-size:.88rem;line-height:1.6}
+.contact-row strong{display:block;margin-bottom:.3rem;color:var(--ink)}
+
+.subscription-card{background:transparent;border:1px solid rgba(196,80,80,.2);padding:1.25rem;border-radius:10px;margin-bottom:1rem}
+.tier-pill{display:inline-block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:.15rem .55rem;border-radius:4px;border:1px solid currentColor}
+
+/* ============== EVERYTHING WRITTEN ON THE PAPER ============== */
+/* All surfaces transparent. Body lined-paper / blueprint grid carries through. */
+.topbar,.tabbar,.hdr,.card,.sc,.settings-list,.subscription-card,.contact-row,
+.mode-toggle,.privacy-opt,.gift-picker,.fg input,.fg select,.fg textarea,
+.btn-sm,.btn-sm.active,.tag,.tag-event,.already-tag,.tier-pill,
+.notif-panel,.notif-item{
+  background:transparent;
+}
+
+/* Light mode form fields — paper-inked feel */
+.fg input,.fg select,.fg textarea{
+  background:transparent;
+  border:1px solid rgba(196,80,80,.3);
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  background:transparent;
+  border-color:var(--burgundy);
+  outline:none;
+  box-shadow:0 0 0 1px var(--burgundy);
+}
+
+/* Dark mode form fields */
+.dark-mode .fg input,.dark-mode .fg select,.dark-mode .fg textarea{
+  background:transparent;
+  border-color:rgba(125,212,255,0.3);
+}
+.dark-mode .fg input:focus,.dark-mode .fg select:focus,.dark-mode .fg textarea:focus{
+  background:transparent;
+  border-color:var(--burgundy);
+  box-shadow:0 0 0 1px var(--burgundy);
+}
+
+/* Privacy options, mode toggle, gift picker — page-tinted */
+.privacy-opt{border:1px solid rgba(196,80,80,.18);background:transparent}
+.privacy-opt.sel{border-color:var(--burgundy);box-shadow:inset 4px 0 0 var(--burgundy);background:rgba(160,40,40,.04)}
+.dark-mode .privacy-opt{border-color:rgba(125,212,255,.2);background:transparent}
+.dark-mode .privacy-opt.sel{border-color:var(--burgundy);box-shadow:inset 4px 0 0 var(--burgundy);background:rgba(78,201,255,.05)}
+
+.mode-toggle{background:transparent;border:1px solid rgba(196,80,80,.2);padding:.35rem;border-radius:10px}
+.mode-btn.active{background:rgba(160,40,40,.07);box-shadow:none}
+.dark-mode .mode-toggle{border-color:rgba(125,212,255,.2)}
+.dark-mode .mode-btn.active{background:rgba(78,201,255,.08)}
+
+.gift-picker{background:transparent;border:1px solid rgba(196,80,80,.18)}
+.dark-mode .gift-picker{border-color:rgba(125,212,255,.2)}
+
+/* Notification panel — overlays a backdrop, keep a paper context */
+.notif-panel{
+  background:
+    linear-gradient(to right, transparent 0 38px, rgba(196,80,80,.28) 38px 39px, transparent 39px),
+    repeating-linear-gradient(0deg, transparent 0 17px, rgba(155,176,216,.5) 17px 19px, transparent 19px 24px),
+    #fdfcf3;
+}
+.dark-mode .notif-panel{
+  background:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0 / 24px 100%,
+    #0c2240;
+  border-left:1px solid rgba(125,212,255,0.25);
+}
+.notif-item{border-bottom:1px solid rgba(196,80,80,.12)}
+.notif-item.unread{background:rgba(184,137,58,.08)}
+.dark-mode .notif-item{border-bottom-color:rgba(125,212,255,.12)}
+.dark-mode .notif-item.unread{background:rgba(232,168,56,.06)}
+
+/* Tags — ink stamps on the page */
+.tag,.tag-event,.already-tag{background:transparent;border:1px solid currentColor}
+
+/* btn-sm.active gets a paper-ink fill */
+.btn-sm.active{background:rgba(160,40,40,.07);border-color:var(--burgundy);color:var(--burgundy)}
+.dark-mode .btn-sm.active{background:rgba(78,201,255,.08);border-color:var(--burgundy);color:var(--burgundy)}
+
+/* btn primary keeps solid bg for legibility */
+.btn{color:#fdfcf3}
+.dark-mode .btn{color:#0a2540}
+
+/* ============== BOTTOM TABS — thumb-index page tabs ============== */
+.tabbar{
+  background:transparent;
+  border-top:none;
+  box-shadow:none;
+  padding-bottom:var(--safe-bottom);
+}
+.tabbar-inner{
+  display:flex;align-items:flex-end;height:68px;gap:3px;padding:8px 6px 0;
+  background:linear-gradient(to top, rgba(196,80,80,.06) 0%, transparent 100%);
+  border-top:1px solid rgba(196,80,80,.25);
+}
+.dark-mode .tabbar-inner{
+  background:linear-gradient(to top, rgba(78,201,255,.05) 0%, transparent 100%);
+  border-top:1px solid rgba(125,212,255,.2);
+}
+.tab-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;
+  cursor:pointer;color:var(--ink-soft);transition:all .18s ease;text-decoration:none;
+  padding:.6rem .25rem .85rem;position:relative;
+  font-size:.62rem;letter-spacing:.04em;font-weight:500;
+  background:transparent;
+  border:1px solid rgba(196,80,80,.22);
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
+  transform:translateY(4px);
+  /* tab divider stripe */
+  box-shadow:inset 0 3px 0 var(--tab-stripe, var(--brass));
+}
+.dark-mode .tab-item{
+  border:1px solid rgba(125,212,255,.22);
+  border-bottom:none;
+  box-shadow:inset 0 3px 0 var(--tab-stripe, var(--brass));
+}
+.tab-item .ic{font-size:1.25rem;line-height:1;margin-top:.15rem}
+.tab-item:nth-child(1){--tab-stripe:#a02828}
+.tab-item:nth-child(2){--tab-stripe:#b8893a}
+.tab-item:nth-child(3){--tab-stripe:#7a8970}
+.tab-item:nth-child(4){--tab-stripe:#3a4a8c}
+.tab-item:nth-child(5){--tab-stripe:#c87a7a}
+.tab-item.active{
+  background:rgba(255,253,240,0.55);
+  transform:translateY(0);
+  color:var(--ink);
+  z-index:2;
+  border-color:rgba(196,80,80,.4);
+  box-shadow:inset 0 4px 0 var(--tab-stripe, var(--brass)), 0 -2px 8px -2px rgba(196,80,80,.15);
+}
+.dark-mode .tab-item.active{
+  background:rgba(78,201,255,0.08);
+  border-color:rgba(125,212,255,.4);
+  color:var(--ink);
+  box-shadow:inset 0 4px 0 var(--tab-stripe, var(--burgundy)), 0 -2px 8px -2px rgba(78,201,255,.2);
+}
+.tab-item.active::before{display:none}
+.tab-badge{
+  position:absolute;top:-2px;right:14%;
+  background:var(--burgundy);color:#fdfcf3;
+  font-size:.55rem;padding:1px 5px;border-radius:8px;
+  font-weight:600;min-width:16px;text-align:center;line-height:1.4;
+  border:1.5px solid #fdfcf3;
+}
+.dark-mode .tab-badge{
+  background:var(--burgundy);color:#0a2540;
+  border-color:#0a2540;
+}
+
+/* Header & generic page chrome */
+.topbar{
+  background:transparent;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(196,80,80,.18);
+}
+.dark-mode .topbar{
+  background:transparent;
+  border-bottom-color:rgba(125,212,255,.18);
+}
+
+/* ============== DESKTOP (768px+) ============== */
+@media (min-width:768px){
+  .app{flex-direction:row}
+  .topbar{display:none}
+  .tabbar{position:sticky;top:0;left:auto;right:auto;bottom:auto;width:240px;height:100vh;flex-shrink:0;padding:0}
+  .tabbar-inner{
+    flex-direction:column;height:100%;padding:1.5rem 0;align-items:stretch;
+    gap:.35rem;
+    background:linear-gradient(to right, rgba(196,80,80,.06) 0%, transparent 100%);
+    border-top:none;
+    border-right:1px solid rgba(196,80,80,.25);
+  }
+  .dark-mode .tabbar-inner{
+    background:linear-gradient(to right, rgba(78,201,255,.05) 0%, transparent 100%);
+    border-right:1px solid rgba(125,212,255,.2);
+  }
+  .tab-item{
+    flex:0;flex-direction:row;justify-content:flex-start;gap:.85rem;
+    padding:.85rem 1.5rem;font-size:.9rem;letter-spacing:0;
+    border-radius:0 10px 10px 0;border:1px solid rgba(196,80,80,.18);
+    border-left:4px solid var(--tab-stripe, var(--brass));
+    box-shadow:none;
+    transform:translateX(-4px);
+    margin-right:8px;
+  }
+  .dark-mode .tab-item{
+    border:1px solid rgba(125,212,255,.18);
+    border-left:4px solid var(--tab-stripe, var(--burgundy));
+    box-shadow:none;
+  }
+  .tab-item .ic{font-size:1.1rem}
+  .tab-item.active{
+    background:rgba(255,253,240,0.55);
+    transform:translateX(0);
+    border-left-width:6px;
+    box-shadow:2px 0 8px -2px rgba(196,80,80,.15);
+  }
+  .dark-mode .tab-item.active{
+    background:rgba(78,201,255,0.08);
+    box-shadow:2px 0 8px -2px rgba(78,201,255,.2);
+  }
+  .tab-badge{position:static;margin-left:auto;background:var(--burgundy);font-size:.65rem;padding:.1rem .5rem;border:none;color:#fdfcf3}
+  .dark-mode .tab-badge{color:#0a2540;border:none}
+  .tabbar-inner::before{content:'Wishlist';display:block;font-family:'Fraunces',serif;font-style:italic;font-size:1.7rem;color:var(--burgundy);padding:0 1.5rem 1.5rem;border-bottom:1px solid rgba(196,80,80,.22);margin-bottom:1rem}
+  .dark-mode .tabbar-inner::before{border-bottom-color:rgba(125,212,255,.22)}
+  .main{height:100vh;padding-bottom:1.5rem}
+  .hdr{padding:48px 3rem 24px;border-bottom:1px solid rgba(196,80,80,.15);position:sticky;top:0;z-index:10;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:transparent}
+  .dark-mode .hdr{border-bottom-color:rgba(125,212,255,.15)}
+  .hdr-content{flex:1;min-width:0}
+  .hdr-actions{display:flex;align-items:center;gap:.5rem}
+  .title{font-size:2.5rem}
+  .content{padding:24px 3rem 48px;max-width:900px}
+  .card-stack{max-width:780px}
+  .home-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));max-width:780px;gap:1rem}
+  .sc{padding:1.5rem}
+  .sc-num{font-size:2.4rem}
+  .hero{margin:-2rem -3rem 1.5rem;padding:3rem;border-radius:0}
+  .hero h1{font-size:2.8rem}
+  .hero .meta{flex-direction:row;gap:1.5rem;flex-wrap:wrap;font-size:.9rem}
+  .gc{grid-template-columns:80px 1fr auto;align-items:center}
+  .gimg{width:80px;height:80px;font-size:2rem}
+  .gprice{grid-column:auto;border-top:none;padding-top:0;margin-top:0;flex-direction:column;align-items:flex-end;text-align:right}
+  .gprice-amount small{display:block;margin-left:0;margin-top:.2rem}
+  .ec-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem 2rem}
+  .modal-bg{align-items:center}
+  .modal{max-width:520px;border-radius:12px;animation:fadeIn .2s}
+  .modal::before{display:none}
+  .modal-actions{flex-direction:row;flex-wrap:wrap;align-items:center}
+  .modal-actions .btn-sm{order:initial;align-self:auto}
+  .modal-actions .btn{order:initial}
+  .drawer{display:none}
+  .frac-opts{grid-template-columns:repeat(6,auto);justify-content:start}
+  .frac{padding:.55rem .85rem;min-width:54px}
+  .toast{bottom:2rem}
+}
+
+/* Very small phones */
+@media (max-width:360px){
+  .tab-item{font-size:.6rem}
+  .tab-item .ic{font-size:1.2rem}
+  .title{font-size:1.7rem}
+  .frac-opts{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <h1>Wishlist</h1>
+      <div class="subtitle">A list for every occasion</div>
+    </div>
+    <div class="fg">
+      <label>Email</label>
+      <input type="email" autocomplete="email" value="antho@example.com">
+    </div>
+    <div class="fg">
+      <label>Password</label>
+      <input type="password" autocomplete="current-password" value="password">
+    </div>
+    <button class="btn btn-full" onclick="enterApp()">Sign in</button>
+    <div style="text-align:center;margin:1.25rem 0;color:var(--ink-soft);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase">or</div>
+    <button class="btn btn-full" style="background:transparent;color:var(--burgundy);border:1px solid var(--burgundy)" onclick="enterApp()">Create free account</button>
+    <div style="text-align:center;margin-top:1.5rem;font-size:.88rem;color:var(--ink-soft)">
+      <a class="link" onclick="toast('Password reset link sent (mock)')">Forgot password?</a>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="app">
+  <!-- Top bar (mobile) -->
+  <header class="topbar">
+    <button class="topbar-back" id="back-btn" onclick="goBack()">← Back</button>
+    <div class="topbar-title" id="top-title" onclick="navTo('home')" style="cursor:pointer">Wishlist</div>
+    <div class="topbar-actions">
+      <button class="icon-btn" onclick="toggleNotifs()" aria-label="Notifications">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="dot" id="notif-dot" style="display:none"></span>
+      </button>
+      <button class="icon-btn" onclick="openMoreMenu()" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="page"></div>
+  </main>
+
+  <!-- Bottom tab bar (mobile) / Sidebar (desktop) -->
+  <nav class="tabbar">
+    <div class="tabbar-inner" id="tabbar"></div>
+  </nav>
+</div>
+
+<!-- More drawer (mobile) -->
+<div class="modal-bg" id="more-drawer-bg" onclick="if(event.target===this) closeMoreMenu()" style="display:none">
+  <div class="drawer open" id="more-drawer" onclick="event.stopPropagation()">
+    <span class="drawer-handle"></span>
+    <div class="drawer-content" id="more-content"></div>
+  </div>
+</div>
+
+<!-- Notification panel -->
+<div class="notif-panel" id="notif-panel">
+  <div class="notif-head">
+    <h3>Notifications</h3>
+    <button class="notif-close" onclick="toggleNotifs()" aria-label="Close">✕</button>
+  </div>
+  <div id="notif-list"></div>
+</div>
+
+<!-- Modal / bottom sheet -->
+<div class="modal-bg" id="modal" onclick="if(event.target===this) closeModal()">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============== STATE ==============
+const STATE = {
+  user: { name:'Antho P.', email:'antho@example.com', tier:'paid', region:'AU', currency:'AUD' },
+  page: 'home',
+  eventId: null,
+  history: [],
+  reveal: false,
+  notifsOpen: false,
+  moreOpen: false,
+  contact: { email:true, phone:true, instagram:false, facebook:false },
+  prefs: { invite:true, eventChange:true, giftEdit:true, chipin:true, autoRelease:true, approaching:false, reveal:true, cohost:false },
+  theme: 'burgundy',
+  wishFilter: 'all',
+  settingsTab: 'account',
+  events: [], gifts: [], notifs: []
+};
+
+const THEMES = {
+  burgundy: { primary:'#a02828', deep:'#7a1818', soft:'#c44545', accent:'#b8893a', accentL:'#d4a85a', cream:'#f4ead6', creamD:'#e8dcc0', paper:'#fdf7e8', ink:'#2b2418', inkS:'#6b5a42' },
+  sage:    { primary:'#4a5a3e', deep:'#324028', soft:'#6a7a5a', accent:'#a89860', accentL:'#c4b884', cream:'#eef0e8', creamD:'#dde1d2', paper:'#f5f7ee', ink:'#1f2a1a', inkS:'#475040' },
+  brass:   { primary:'#9a6e22', deep:'#6e4e15', soft:'#b88c3a', accent:'#6b4a2a', accentL:'#a8784a', cream:'#f5efde', creamD:'#ebe0c5', paper:'#faf4e3', ink:'#2a2218', inkS:'#5a4d36' },
+  navy:    { primary:'#2a4a6b', deep:'#15304a', soft:'#4a6a8b', accent:'#b8893a', accentL:'#d4a85a', cream:'#e8ecf2', creamD:'#cfd6e0', paper:'#f0f3f8', ink:'#15212e', inkS:'#3d4d60' },
+  rose:    { primary:'#a04a4a', deep:'#7a2e2e', soft:'#c87a7a', accent:'#a8784a', accentL:'#c49870', cream:'#f7ecec', creamD:'#ecd5d5', paper:'#fbf2f2', ink:'#2e1a1a', inkS:'#603e3e' },
+  ink:     { primary:'#2a1f1a', deep:'#15100c', soft:'#5a4a40', accent:'#b8893a', accentL:'#d4a85a', cream:'#e8e4de', creamD:'#d0c9bd', paper:'#f0ece6', ink:'#0f0a07', inkS:'#3a322a' }
+};
+
+const ICONS = ['🎁','📚','🎧','🌿','🍷','🍳','📷','🖼️','🥂','🎟️','📖','🛋️','🍽️','🧣','🧴','🎨','⌚','🎮','🌸','🕯️','🧸','💐','🍰','📺'];
+const EVENT_TYPES = ['Birthday','Wedding','Housewarming','Anniversary','Christmas','Baby shower','Engagement','Graduation','Other'];
+
+// ============== SEED ==============
+function seedData() {
+  STATE.events = [
+    // Past hosted — reveal unlocked, gifts received on wishlist
+    { id:'e8', title:"Antho's 40th", type:'Birthday', date:'2026-04-26', time:'19:00', location:'The Old Bar, Fitzroy', hostId:'me', invitees:18, privacy:'direct', theme:'brass', giftIds:['gr1','gr2','gr3'], claims:{ gr1:[{userId:'ruth',fraction:1,bought:true}], gr2:[{userId:'maddy',fraction:0.5,bought:true},{userId:'liam',fraction:0.5,bought:true}], gr3:[{userId:'jess',fraction:1,bought:true}] } },
+    // Past invited — you bought a gift
+    { id:'e9', title:"Tom's farewell drinks", type:'Other', date:'2026-04-30', time:'18:00', location:'The Tote, Collingwood', hostId:'host5', hostName:'Tom W.', invitees:22, privacy:'direct', theme:'navy', giftIds:['gh9','gh10'], claims:{ gh9:[{userId:'me',fraction:1,bought:true}] }, isInvite:true },
+    // Upcoming hosted
+    { id:'e1', title:"Sam's 35th", type:'Birthday', date:'2026-05-23', time:'19:00', location:'Our place, Brunswick', hostId:'me', invitees:14, privacy:'direct', theme:'burgundy', giftIds:['g1','g2','g3','g4'], claims:{ g1:[{userId:'guest1',fraction:1}], g4:[{userId:'guest2',fraction:1}], g2:[{userId:'guest3',fraction:0.5}] } },
+    { id:'e7', title:"Jamall's graduation", type:'Graduation', date:'2026-05-23', time:'14:00', location:'RMIT, City', hostId:'host4', hostName:'Jamall S.', invitees:30, privacy:'direct', theme:'navy', giftIds:[], claims:{}, isInvite:true },
+    { id:'e2', title:"Pat & Jo's 40th", type:'Anniversary', date:'2026-06-13', time:'18:30', location:'The Hotel Windsor', hostId:'me', invitees:32, privacy:'plusone', theme:'sage', giftIds:['g7','g8','g9'], claims:{ g7:[{userId:'guest4',fraction:1}] } },
+    { id:'e3', title:'Christmas in July', type:'Christmas', date:'2026-07-25', time:'16:00', location:"Ruth's house", hostId:'me', invitees:9, privacy:'direct', theme:'rose', giftIds:['g2','g10'], claims:{} },
+    // Upcoming invited
+    { id:'e4', title:"Ruth's housewarming", type:'Housewarming', date:'2026-05-17', time:'18:00', location:'Northcote', hostId:'host1', hostName:'Ruth Perry', invitees:18, privacy:'plusone', theme:'sage', giftIds:['gh1','gh2','gh3','gh4'], claims:{ gh1:[{userId:'me',fraction:1}], gh2:[{userId:'maddy',fraction:0.5}] }, isInvite:true },
+    { id:'e5', title:"Jess & Tom's wedding", type:'Wedding', date:'2026-06-07', time:'15:00', location:'Stones of the Yarra Valley', hostId:'host2', hostName:'Jess M.', invitees:80, privacy:'direct', theme:'rose', giftIds:['gh5','gh6','gh7'], claims:{}, isInvite:true },
+    { id:'e6', title:"Liam's 40th", type:'Birthday', date:'2026-06-21', time:'20:00', location:'The Gem Bar, Collingwood', hostId:'host3', hostName:'Liam K.', invitees:24, privacy:'direct', theme:'ink', giftIds:['gh8'], claims:{ gh8:[{userId:'me',fraction:1,bought:true}] }, isInvite:true }
+  ];
+  STATE.gifts = [
+    // Personal wishlist (no ownerId)
+    { id:'g1', icon:'📚', name:'Sally Rooney trilogy', desc:'Dymocks. Hardback, gift-wrap.', price:120, link:'#' },
+    { id:'g2', icon:'🎧', name:'Sony WH-1000XM5', desc:'Black. JB Hi-Fi.', price:549, link:'#' },
+    { id:'g3', icon:'🌿', name:'Monstera plant', desc:'Medium, terracotta pot.', price:80, link:'#' },
+    { id:'g4', icon:'🍷', name:'Mornington wine pack', desc:'Mixed case from Vinomofo.', price:180, link:'#' },
+    { id:'g5', icon:'🍳', name:'Le Creuset casserole', desc:'26cm, cherry red.', price:549, link:'#' },
+    { id:'g6', icon:'📷', name:'Instax mini camera', desc:'Pastel green.', price:129, link:'#' },
+    { id:'g7', icon:'🥂', name:'Champagne hamper', desc:'Veuve and accompaniments.', price:280, link:'#' },
+    { id:'g8', icon:'🖼️', name:'Custom photo book', desc:'40 years in pictures.', price:120, link:'#' },
+    { id:'g9', icon:'🎟️', name:'Theatre tickets', desc:'Show TBD.', price:200, link:'#' },
+    { id:'g10', icon:'🧣', name:'Cashmere scarf', desc:'Forest green.', price:180, link:'#' },
+    // Received gifts — on YOUR wishlist, tied to a past hosted event
+    { id:'gr1', icon:'🎨', name:'Watercolour set', desc:'From Ruth · received at 40th', price:140, link:'#', receivedFrom:'e8', fromName:'Ruth' },
+    { id:'gr2', icon:'🥃', name:'Whisky decanter', desc:'From Maddy & Liam · chip-in', price:220, link:'#', receivedFrom:'e8', fromName:'Maddy & Liam' },
+    { id:'gr3', icon:'📷', name:'Polaroid camera', desc:'From Jess · received at 40th', price:180, link:'#', receivedFrom:'e8', fromName:'Jess' },
+    // Other hosts' gifts
+    { id:'gh1', icon:'🍳', name:'Le Creuset casserole', desc:'Cherry red. House of Knives.', price:549, link:'#', ownerId:'host1' },
+    { id:'gh2', icon:'🛋️', name:'Velvet throw cushions', desc:'Forest green pair. West Elm.', price:220, link:'#', ownerId:'host1' },
+    { id:'gh3', icon:'🍷', name:'Riedel wine glass set', desc:'Burgundy glasses, set of 6.', price:320, link:'#', ownerId:'host1' },
+    { id:'gh4', icon:'📖', name:'Ottolenghi Comfort cookbook', desc:'Hardback. Readings.', price:60, link:'#', ownerId:'host1' },
+    { id:'gh5', icon:'🍽️', name:'Serving platter set', desc:'Linen ceramic.', price:240, link:'#', ownerId:'host2' },
+    { id:'gh6', icon:'🥂', name:'Crystal champagne flutes', desc:'Set of 4.', price:180, link:'#', ownerId:'host2' },
+    { id:'gh7', icon:'📚', name:'Yarra Valley coffee table book', desc:'Photography.', price:75, link:'#', ownerId:'host2' },
+    { id:'gh8', icon:'🍷', name:'Penfolds Bin 389', desc:'Vintage bottle.', price:95, link:'#', ownerId:'host3' },
+    { id:'gh9', icon:'🎁', name:'Farewell hamper', desc:'Bourbon, snacks, sentimental note.', price:140, link:'#', ownerId:'host5' },
+    { id:'gh10', icon:'📖', name:'Travel journal', desc:'Leather-bound. Moleskine.', price:55, link:'#', ownerId:'host5' }
+  ];
+  STATE.notifs = [
+    { id:'n0', title:"Reveal unlocked: Antho's 40th", meta:'11 days ago', read:false },
+    { id:'n1', title:'Ruth chipped in on Sam\'s 35th', meta:'2 days ago', read:false },
+    { id:'n2', title:'Maddy J. chipped in on a gift', meta:'4 days ago', read:false },
+    { id:'n3', title:"Jess & Tom's wedding — invite received", meta:'1 week ago', read:true }
+  ];
+}
+
+// ============== UTILS ==============
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function applyTheme(name) {
+  const t = THEMES[name] || THEMES.burgundy;
+  const r = document.documentElement;
+  const dark = r.classList.contains('dark-mode');
+
+  if (dark) {
+    // Dark mode keeps blueprint base palette; theme only tints the primary/accent
+    r.style.setProperty('--cream', '#0a2540');
+    r.style.setProperty('--cream-dark', '#143257');
+    r.style.setProperty('--paper', '#0f2a4a');
+    r.style.setProperty('--ink', '#f0f6ff');
+    r.style.setProperty('--ink-soft', '#9fb8d8');
+    // Each theme tints the accent/primary to a drafting-pen colour
+    const darkAccents = {
+      burgundy: { p:'#4ec9ff', d:'#2d9ed8', s:'#7dd4ff', a:'#e8a838', al:'#f5c668' },
+      sage:     { p:'#7de8a0', d:'#4ec97a', s:'#a8f0c0', a:'#e8a838', al:'#f5c668' },
+      brass:    { p:'#f5c668', d:'#e8a838', s:'#f8d488', a:'#4ec9ff', al:'#7dd4ff' },
+      navy:     { p:'#9fb8ff', d:'#6e90e0', s:'#c0d0ff', a:'#e8a838', al:'#f5c668' },
+      rose:     { p:'#ff9cb0', d:'#e07088', s:'#ffb8c8', a:'#e8a838', al:'#f5c668' },
+      ink:      { p:'#e0e8f5', d:'#a8b8d0', s:'#f0f6ff', a:'#e8a838', al:'#f5c668' },
+      lilac:    { p:'#c89cf8', d:'#9c70d8', s:'#dcb8ff', a:'#e8a838', al:'#f5c668' },
+      sand:     { p:'#f0d8a0', d:'#c9b070', s:'#f8e4b8', a:'#4ec9ff', al:'#7dd4ff' }
+    };
+    const a = darkAccents[name] || darkAccents.burgundy;
+    r.style.setProperty('--burgundy', a.p);
+    r.style.setProperty('--burgundy-deep', a.d);
+    r.style.setProperty('--burgundy-soft', a.s);
+    r.style.setProperty('--brass', a.a);
+    r.style.setProperty('--brass-light', a.al);
+  } else {
+    r.style.setProperty('--cream', t.cream);
+    r.style.setProperty('--cream-dark', t.creamD);
+    r.style.setProperty('--paper', t.paper);
+    r.style.setProperty('--ink', t.ink);
+    r.style.setProperty('--ink-soft', t.inkS);
+    r.style.setProperty('--burgundy', t.primary);
+    r.style.setProperty('--burgundy-deep', t.deep);
+    r.style.setProperty('--burgundy-soft', t.soft);
+    r.style.setProperty('--brass', t.accent);
+    r.style.setProperty('--brass-light', t.accentL);
+  }
+  STATE.theme = name;
+  const meta = document.querySelector('meta[name=theme-color]');
+  if (meta) meta.setAttribute('content', dark ? '#0a2540' : t.primary);
+}
+
+function fmtDate(d, t) {
+  const date = new Date(d + 'T' + (t||'00:00'));
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let timeStr = '';
+  if (t) {
+    let h = date.getHours();
+    const m = date.getMinutes();
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    timeStr = ' · ' + h + ':' + String(m).padStart(2,'0') + ' ' + ampm;
+  }
+  return `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]}${timeStr}`;
+}
+
+function daysUntil(d) { return Math.round((new Date(d) - new Date('2026-05-10')) / 86400000); }
+function isReveal(e) { if (STATE.reveal) return true; return daysUntil(e.date) < -3; }
+function giftFraction(e, gid) { return ((e.claims||{})[gid] || []).reduce((s,c) => s + c.fraction, 0); }
+function giftClaims(e, gid) { return ((e.claims||{})[gid] || []); }
+function myClaim(e, gid) { return giftClaims(e, gid).find(c => c.userId === 'me'); }
+function getGift(id) { return STATE.gifts.find(g => g.id === id); }
+function getEvent(id) { return STATE.events.find(e => e.id === id); }
+
+function fracLabel(f) {
+  if (f === 1) return 'full';
+  if (f === 0.5) return '1/2';
+  if (f === 0.25) return '1/4';
+  if (f === 0.75) return '3/4';
+  if (Math.abs(f - 1/3) < 0.01) return '1/3';
+  if (Math.abs(f - 2/3) < 0.01) return '2/3';
+  return Math.round(f*100) + '%';
+}
+
+// ============== NAV (bottom tab bar) ==============
+function renderTabbar() {
+  const myEvents = STATE.events.filter(e => !e.isInvite && daysUntil(e.date) > -3).length;
+  const wishCount = STATE.gifts.filter(g => !g.ownerId && !g.receivedFrom).length;
+  const inviteCount = STATE.events.filter(e => e.isInvite && daysUntil(e.date) > -3).length;
+  const shopCount = STATE.events.filter(e => e.isInvite).reduce((s,e) => s + Object.values(e.claims||{}).flat().filter(c=>c.userId==='me').length, 0);
+
+  const items = [
+    { k:'home', i:'⌂', l:'Home' },
+    { k:'wishlist', i:'♡', l:'Wishlist', b: wishCount },
+    { k:'events', i:'★', l:'Hosting', b: myEvents },
+    { k:'invites', i:'✉', l:'Invited', b: inviteCount },
+    { k:'shopping', i:'◈', l:'Shopping', b: shopCount }
+  ];
+  const isActive = (k) => STATE.page === k
+    || (k === 'events' && ['eventDetail','editEvent','createEvent'].includes(STATE.page))
+    || (k === 'invites' && STATE.page === 'inviteDetail');
+
+  $('#tabbar').innerHTML = items.map(it => `
+    <div class="tab-item ${isActive(it.k)?'active':''}" onclick="navTo('${it.k}')" role="button">
+      <span class="ic">${it.i}</span>
+      <span>${it.l}</span>
+      ${it.b ? `<span class="tab-badge">${it.b}</span>` : ''}
+    </div>
+  `).join('');
+
+  $('#notif-dot').style.display = STATE.notifs.some(n=>!n.read) ? 'block' : 'none';
+
+  // Top title
+  const titleMap = { home:'Wishlist', wishlist:'My Wishlist', events:'Hosting', invites:'Invited', shopping:'Shopping list',
+    eventDetail:'Event', createEvent:'New Event', editEvent:'Edit Event', inviteDetail:'Invite',
+    settings:'Settings', settingsDetail:'Settings', howto:'How it works' };
+  $('#top-title').textContent = titleMap[STATE.page] || 'Wishlist';
+  $('#back-btn').classList.toggle('show', ['eventDetail','createEvent','editEvent','inviteDetail','settings','settingsDetail','howto'].includes(STATE.page));
+}
+
+// ============== CLASH DETECTION ==============
+function findClashes(event) {
+  return STATE.events.filter(other =>
+    other.id !== event.id &&
+    other.date === event.date &&
+    daysUntil(other.date) > -3
+  );
+}
+
+// ============== EVENT CARD ==============
+function eventCard(e, isPast) {
+  const claimed = Object.keys(e.claims||{}).length;
+  const total = e.giftIds.length;
+  const d = daysUntil(e.date);
+  const word = d > 0 ? 'days away' : d === 0 ? 'today' : 'days ago';
+  const mine = e.isInvite ? Object.values(e.claims||{}).flat().filter(c=>c.userId==='me').length : 0;
+  const clashes = findClashes(e);
+  const stamp = e.isInvite ? '' : '<div class="host-stamp">Host</div>';
+  const removeBtn = isPast ? `<button class="event-remove" onclick="event.stopPropagation();confirmRemovePastEvent('${e.id}')" aria-label="Remove past event">✕</button>` : '';
+
+  return `
+    <div class="card clickable notepad ${isPast?'past':''}" onclick="openEvent('${e.id}')">
+      ${stamp}
+      ${removeBtn}
+      ${clashes.length ? `<div class="clash-warn">⚠ <strong>Clashes</strong> with ${esc(clashes.map(c=>c.title).join(', '))}</div>` : ''}
+      <div class="ec-head">
+        <div class="ec-title">${esc(e.title)}</div>
+        <span class="tag-event">${esc(e.type)}</span>
+      </div>
+      <div class="ec-meta">
+        <div class="ec-meta-item"><span class="ic">◷</span>${fmtDate(e.date, e.time)}</div>
+        <div class="ec-meta-item"><span class="ic">◉</span>${esc(e.location)}</div>
+        <div class="ec-meta-item"><span class="ic">◇</span>${e.isInvite ? 'Hosted by ' + esc(e.hostName) : e.invitees + ' invitees'}</div>
+        <div class="ec-meta-item"><span class="ic">⊕</span>${total} gift${total===1?'':'s'} listed</div>
+      </div>
+      <div class="ec-stats">
+        ${e.isInvite
+          ? `<div class="stat"><strong>${mine}</strong><span class="progress">you've claimed</span></div>
+             <div class="stat"><strong>${total - claimed}</strong>still available</div>`
+          : `<div class="stat"><strong>${e.invitees}</strong>going</div>
+             <div class="stat"><strong>${claimed}</strong>${isReveal(e) ? '<span class="progress">claimed</span>' : 'gifts on list'}</div>`}
+        <div class="stat"><strong>${Math.abs(d)}</strong>${word}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ============== PAGE: HOME ==============
+function pageHome() {
+  const wishCount = STATE.gifts.filter(g => !g.ownerId && !g.receivedFrom).length;
+  const myEvents = STATE.events.filter(e => !e.isInvite).sort((a,b) => a.date.localeCompare(b.date));
+  const myUp = myEvents.filter(e => daysUntil(e.date) > -3);
+  const inviteList = STATE.events.filter(e => e.isInvite && daysUntil(e.date) > -3);
+  const inviteCount = inviteList.length;
+  const claims = STATE.events.filter(e => e.isInvite).reduce((s,e) => s + Object.values(e.claims||{}).flat().filter(c=>c.userId==='me').length, 0);
+  const bought = STATE.events.filter(e => e.isInvite).reduce((s,e) => s + Object.values(e.claims||{}).flat().filter(c=>c.userId==='me' && c.bought).length, 0);
+  const recentReveal = STATE.events.find(e => !e.isInvite && daysUntil(e.date) < -3 && daysUntil(e.date) > -90);
+  const receivedCount = STATE.gifts.filter(g => g.receivedFrom).length;
+  // Combine and sort all upcoming events
+  const allSoonest = [...myUp, ...inviteList].sort((a,b) => a.date.localeCompare(b.date)).slice(0, 4);
+
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">Good morning, <em>${esc(STATE.user.name.split(' ')[0])}</em></h1>
+        <p class="subtitle">Sunday, 10 May · ${myUp.length} hosting · ${inviteCount} invited</p>
+      </div>
+    </header>
+    <div class="content">
+      ${recentReveal ? `<div class="banner success"><strong>Reveal unlocked.</strong> Your ${esc(recentReveal.title)} was ${Math.abs(daysUntil(recentReveal.date))} days ago — <a class="link" onclick="openEvent('${recentReveal.id}')">see who gave what</a>.</div>` : ''}
+
+      <div class="section-label">Shortcuts</div>
+      <div class="home-grid">
+        <div class="sc" onclick="navTo('wishlist')"><div class="sc-label">Wishlist</div><div class="sc-num">${wishCount}</div><div class="sc-meta">${receivedCount?'+ '+receivedCount+' received':'gifts saved'}</div></div>
+        <div class="sc" onclick="navTo('events')"><div class="sc-label">Hosting</div><div class="sc-num">${myUp.length}</div><div class="sc-meta">events upcoming</div></div>
+        <div class="sc" onclick="navTo('invites')"><div class="sc-label">Invited</div><div class="sc-num">${inviteCount}</div><div class="sc-meta">parties to attend</div></div>
+        <div class="sc" onclick="navTo('shopping')"><div class="sc-label">Shopping</div><div class="sc-num">${claims}</div><div class="sc-meta">${claims-bought} to buy${bought?' · '+bought+' done':''}</div></div>
+      </div>
+
+      <div class="section-label">What's coming up</div>
+      ${allSoonest.length === 0
+        ? `<div class="empty"><h3>Nothing on the horizon</h3><p>Create an event or wait for an invite.</p><button class="btn-ghost" onclick="openCreateEvent()">+ New event</button></div>`
+        : `<div class="card-stack">${allSoonest.map(e => eventCard(e)).join('')}</div>`}
+    </div>
+  `;
+}
+
+// ============== PAGE: EVENTS ==============
+function pageEvents() {
+  const all = STATE.events.filter(e => !e.isInvite).sort((a,b) => a.date.localeCompare(b.date));
+  const upcoming = all.filter(e => daysUntil(e.date) > -3);
+  const past = all.filter(e => daysUntil(e.date) <= -3).reverse(); // most recent past first
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">My <em>Hosting</em></h1>
+        <p class="subtitle">${upcoming.length} upcoming · ${past.length} past</p>
+      </div>
+      <div class="actions"><button class="btn-ghost" onclick="openCreateEvent()">+ New event</button></div>
+    </header>
+    <div class="content">
+      ${upcoming.length === 0 && past.length === 0
+        ? `<div class="empty"><h3>No events yet</h3><p>Create your first event to coordinate gifts.</p><button class="btn-ghost" onclick="openCreateEvent()">+ New event</button></div>`
+        : ''}
+      ${upcoming.length ? `
+        <div class="section-label">Upcoming</div>
+        <div class="card-stack">${upcoming.map(eventCard).join('')}</div>
+      ` : ''}
+      ${past.length ? `
+        <div class="section-label" style="margin-top:1.75rem">Past · tap to remove</div>
+        <div class="card-stack">${past.map(e => eventCard(e, true)).join('')}</div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ============== PAGE: EVENT DETAIL ==============
+function pageEventDetail() {
+  const e = getEvent(STATE.eventId);
+  if (!e) return `<div class="content"><div class="empty"><h3>Event not found</h3></div></div>`;
+  const reveal = isReveal(e);
+  const claimed = Object.keys(e.claims||{}).length;
+  const total = e.giftIds.length;
+  const th = THEMES[e.theme] || THEMES.burgundy;
+
+  return `
+    <div class="content">
+      <div class="hero" style="background:linear-gradient(135deg, ${th.primary} 0%, ${th.deep} 100%);">
+        <h1>${esc(e.title)}</h1>
+        <div class="meta">
+          <span>◷ ${fmtDate(e.date, e.time)}</span>
+          <span>◉ ${esc(e.location)}</span>
+          <span>◇ ${e.invitees} invitees</span>
+          <span>⊕ ${total} gifts</span>
+        </div>
+      </div>
+
+      ${reveal
+        ? `<div class="banner success"><strong>Reveal unlocked.</strong> Here's who claimed and brought what — mark thank-yous as you send them.</div>`
+        : `<div class="banner"><strong>You're the host.</strong> Claim activity is fully hidden until 3 days after the event, so the surprise survives. You'll see everything in the reveal.</div>`}
+
+      <div class="actions" style="margin-bottom:1.25rem">
+        ${daysUntil(e.date) > -3
+          ? `<button class="btn-ghost" onclick="openEditEvent('${e.id}')">Edit event</button>
+             <button class="btn-sm" onclick="copyShareLink('${e.id}')">Share link</button>
+             <button class="btn-sm" onclick="addToCalendar('${e.id}')">Add to calendar</button>
+             <button class="btn-sm danger" onclick="confirmCancelEvent('${e.id}')">Cancel</button>`
+          : `<button class="btn-sm danger" onclick="confirmRemovePastEvent('${e.id}')">Remove from list</button>`}
+      </div>
+
+      <div class="section-label">Linked gifts</div>
+      <div class="card-stack">
+        ${total === 0 ? `<div class="empty"><h3>No gifts linked yet</h3><p>Add gifts from your wishlist.</p><button class="btn-ghost" onclick="openEditEvent('${e.id}')">Link gifts</button></div>` :
+        e.giftIds.map(gid => {
+          const g = getGift(gid);
+          if (!g) return '';
+          const frac = giftFraction(e, gid);
+          const claims = giftClaims(e, gid);
+          let tag = '';
+          // Only show claim status to host AFTER reveal — Ruth's note
+          if (reveal) {
+            if (frac >= 0.999) tag = '<span class="tag claimed">Fully claimed</span>';
+            else if (frac > 0) tag = `<span class="tag partial">${Math.round(frac*100)}% claimed</span>`;
+            else tag = '<span class="tag">Not claimed</span>';
+          }
+
+          let extra = '';
+          if (reveal && claims.length) {
+            const names = claims.map(c => `${c.userId==='me'?'You':'Guest '+c.userId.slice(-1)}${c.bought?' (bought ✓)':''}`).join(', ');
+            extra = `<div style="margin-top:.5rem;font-size:.82rem;color:var(--ink-soft);line-height:1.4">From: <em>${esc(names)}</em></div>
+              <button class="btn-sm" style="margin-top:.5rem" onclick="markThanked()">Mark thanked</button>`;
+          }
+
+          return `
+            <div class="card gc">
+              <div class="gimg">${g.icon}</div>
+              <div class="ginfo">
+                <h3>${esc(g.name)}</h3>
+                <p>${esc(g.desc)}</p>
+                ${tag ? `<div class="tags">${tag}</div>` : ''}
+                ${extra}
+              </div>
+              <div class="gprice"><div class="gprice-amount">≈ A$${g.price}</div></div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ============== PAGE: CREATE/EDIT EVENT ==============
+function pageCreateEvent(editId) {
+  const editing = editId ? getEvent(editId) : null;
+  const th = (editing && editing.theme) || 'burgundy';
+  const tg = THEMES[th];
+
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">${editing?'Edit':'New'} <em>Event</em></h1>
+        <p class="subtitle">${editing?'Update details — invitees notified':"Tell us what you're celebrating"}</p>
+      </div>
+    </header>
+    <div class="content">
+      <div class="fg"><label>Event title</label><input type="text" id="ce-title" placeholder="e.g. Sam's 35th" value="${editing?esc(editing.title):''}"></div>
+
+      <div class="fg"><label>Event type</label><select id="ce-type">
+        ${EVENT_TYPES.map(t => `<option ${editing&&editing.type===t?'selected':''}>${t}</option>`).join('')}
+      </select></div>
+
+      <div class="row">
+        <div class="fg"><label>Date</label><input type="date" id="ce-date" value="${editing?editing.date:'2026-06-01'}"></div>
+        <div class="fg"><label>Time</label><input type="time" id="ce-time" value="${editing?editing.time:'19:00'}"></div>
+      </div>
+
+      <div class="fg"><label>Location</label><input type="text" id="ce-location" placeholder="Venue or address" value="${editing?esc(editing.location):''}"></div>
+
+      <div class="fg"><label>Expected invitees</label><input type="number" id="ce-invitees" min="1" value="${editing?editing.invitees:10}"></div>
+
+      <div class="fg">
+        <label>Privacy</label>
+        <div class="privacy-opts">
+          ${[{k:'direct',t:'Direct only',d:'Only invitees can view and claim.'},
+             {k:'plusone',t:'+1 allowed',d:'Invitees can forward to one extra person.'},
+             {k:'open',t:'Open link',d:'Anyone with the link can claim.'}].map(p => `
+            <div class="privacy-opt ${(editing?editing.privacy:'direct')===p.k?'sel':''}" data-p="${p.k}" onclick="selectPrivacy(this)">
+              <strong>${p.t}</strong><p>${p.d}</p>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Linked gifts</label>
+        <div class="gift-picker">
+          ${STATE.gifts.filter(g => !g.ownerId).map(g => {
+            const checked = editing && editing.giftIds.includes(g.id);
+            const otherEvents = STATE.events.filter(ev =>
+              !ev.isInvite &&
+              ev.giftIds.includes(g.id) &&
+              (!editing || ev.id !== editing.id) &&
+              daysUntil(ev.date) > -3
+            );
+            const alreadyTag = otherEvents.length
+              ? `<span class="already-tag" title="${esc(otherEvents.map(e=>e.title).join(', '))}">On ${otherEvents.length} other event${otherEvents.length>1?'s':''}</span>`
+              : '';
+            return `<label class="${otherEvents.length?'already-linked':''}"><input type="checkbox" data-gift="${g.id}" ${checked?'checked':''}><span style="font-size:1.1rem">${g.icon}</span><span class="gp-name">${esc(g.name)}</span>${alreadyTag}<span class="gp-price">A$${g.price}</span></label>`;
+          }).join('') || '<p style="padding:.75rem;color:var(--ink-soft);font-size:.85rem;text-align:center">No gifts in wishlist yet — add some first.</p>'}
+        </div>
+      </div>
+
+      <div class="fg">
+        <label>Event theme</label>
+        <div class="swatches" id="ce-theme">
+          ${['burgundy','sage','brass','navy','rose','ink'].map(k => `
+            <div class="sw ${k===th?'sel':''}" data-t="${k}" onclick="selectEventTheme(this,'${k}')" style="background:linear-gradient(135deg, ${THEMES[k].primary}, ${THEMES[k].soft})"></div>
+          `).join('')}
+        </div>
+        <div id="ce-preview" style="margin-top:1rem;padding:1.25rem;border-radius:8px;color:var(--paper);background:linear-gradient(135deg, ${tg.primary}, ${tg.deep})">
+          <div style="font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem">Preview</div>
+          <div style="font-size:.82rem;opacity:.9;margin-top:.3rem">Colour invitees see on the event page.</div>
+        </div>
+        <p style="font-size:.78rem;color:var(--ink-soft);margin-top:.75rem">📸 Background image upload disabled in mockup.</p>
+      </div>
+
+      <div class="actions" style="margin-top:1.5rem;flex-direction:column;align-items:stretch">
+        <button class="btn" onclick="${editing?`saveEditedEvent('${editing.id}')`:'saveNewEvent()'}">${editing?'Save changes':'Create event'}</button>
+        <button class="btn-sm" onclick="navTo('${editing?'eventDetail':'events'}')">Cancel</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectPrivacy(el) { $$('.privacy-opt').forEach(o => o.classList.remove('sel')); el.classList.add('sel'); }
+function selectEventTheme(el, k) {
+  $$('#ce-theme .sw').forEach(s => s.classList.remove('sel'));
+  el.classList.add('sel');
+  $('#ce-preview').style.background = `linear-gradient(135deg, ${THEMES[k].primary}, ${THEMES[k].deep})`;
+}
+
+function saveNewEvent() {
+  const title = $('#ce-title').value.trim();
+  if (!title) { toast('Title required'); return; }
+  const giftIds = $$('.gift-picker input[type=checkbox]:checked').map(c => c.dataset.gift);
+  const privacy = ($('.privacy-opt.sel') || {}).dataset?.p || 'direct';
+  const theme = ($('#ce-theme .sw.sel') || {}).dataset?.t || 'burgundy';
+  STATE.events.push({
+    id: 'e' + Date.now(), title,
+    type: $('#ce-type').value, date: $('#ce-date').value, time: $('#ce-time').value,
+    location: $('#ce-location').value || 'TBC',
+    invitees: parseInt($('#ce-invitees').value) || 0,
+    hostId: 'me', privacy, theme, giftIds, claims: {}
+  });
+  toast('Event created');
+  navTo('events');
+}
+
+function saveEditedEvent(id) {
+  const e = getEvent(id);
+  if (!e) return;
+  e.title = $('#ce-title').value.trim() || e.title;
+  e.type = $('#ce-type').value;
+  e.date = $('#ce-date').value;
+  e.time = $('#ce-time').value;
+  e.location = $('#ce-location').value || e.location;
+  e.invitees = parseInt($('#ce-invitees').value) || e.invitees;
+  e.privacy = ($('.privacy-opt.sel') || {}).dataset?.p || e.privacy;
+  e.theme = ($('#ce-theme .sw.sel') || {}).dataset?.t || e.theme;
+  e.giftIds = $$('.gift-picker input[type=checkbox]:checked').map(c => c.dataset.gift);
+  STATE.notifs.unshift({ id:'n'+Date.now(), title:`"${e.title}" was updated`, meta:'Just now', read:false });
+  toast('Event updated · invitees notified');
+  STATE.eventId = id; STATE.page = 'eventDetail';
+  render();
+}
+
+function openCreateEvent() {
+  STATE.page = 'createEvent'; render();
+}
+
+function openEditEvent(id) { STATE.eventId = id; STATE.page = 'editEvent'; render(); }
+
+function confirmCancelEvent(id) {
+  const e = getEvent(id);
+  showModal(`<h2>Cancel "${esc(e.title)}"?</h2>
+    <p>Invitees will be notified. Unbought claims will be released.</p>
+    <div class="modal-actions">
+      <button class="btn" style="background:var(--burgundy-soft)" onclick="cancelEvent('${id}')">Yes, cancel</button>
+      <button class="btn-sm" onclick="closeModal()">Keep event</button>
+    </div>`);
+}
+
+function cancelEvent(id) {
+  STATE.events = STATE.events.filter(e => e.id !== id);
+  closeModal(); toast('Event cancelled'); navTo('events');
+}
+
+function confirmRemovePastEvent(id) {
+  const e = getEvent(id);
+  if (!e) return;
+  // Find received gifts on wishlist that came from this event
+  const receivedGifts = STATE.gifts.filter(g => g.receivedFrom === id);
+  const giftLine = receivedGifts.length
+    ? `<p style="font-size:.85rem;color:var(--burgundy);font-weight:500">${receivedGifts.length} received gift${receivedGifts.length===1?'':'s'} on your wishlist will also be removed:</p>
+       <ul style="list-style:none;font-size:.82rem;color:var(--ink-soft);padding-left:0;margin:.5rem 0 .75rem">${receivedGifts.map(g=>`<li style="padding:.15rem 0">${g.icon} ${esc(g.name)}</li>`).join('')}</ul>`
+    : '';
+  showModal(`<h2>Remove "${esc(e.title)}"?</h2>
+    <p>This past event will be removed from your list.</p>
+    ${giftLine}
+    <p style="font-size:.78rem;color:var(--ink-soft)">The event itself is unaffected for other people who attended.</p>
+    <div class="modal-actions">
+      <button class="btn" style="background:var(--burgundy-soft)" onclick="removePastEvent('${id}')">Remove</button>
+      <button class="btn-sm" onclick="closeModal()">Cancel</button>
+    </div>`);
+}
+
+function removePastEvent(id) {
+  const wasViewing = STATE.eventId === id && (STATE.page === 'eventDetail' || STATE.page === 'inviteDetail');
+  const wasInvite = STATE.events.find(e=>e.id===id)?.isInvite;
+  // Remove the event
+  STATE.events = STATE.events.filter(e => e.id !== id);
+  // Also remove any received gifts that came from this event
+  const removed = STATE.gifts.filter(g => g.receivedFrom === id).length;
+  STATE.gifts = STATE.gifts.filter(g => g.receivedFrom !== id);
+  closeModal();
+  toast(removed ? `Removed · ${removed} received gift${removed===1?'':'s'} cleared` : 'Removed from list');
+  if (wasViewing) {
+    STATE.page = wasInvite ? 'invites' : 'events';
+    STATE.eventId = null;
+  }
+  render();
+}
+
+function copyShareLink(id) {
+  const link = `https://wishlist.app/i/${id}`;
+  if (navigator.clipboard) navigator.clipboard.writeText(link).catch(()=>{});
+  toast('Invite link copied');
+}
+
+function addToCalendar(id) {
+  const e = getEvent(id);
+  if (!e) return;
+  // Build a minimal .ics
+  const fmtICS = (d, t) => {
+    const dt = new Date(d + 'T' + (t||'00:00') + ':00');
+    return dt.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+  };
+  const start = fmtICS(e.date, e.time);
+  // Assume 3-hour event
+  const endDate = new Date(new Date(e.date + 'T' + (e.time||'00:00')).getTime() + 3*60*60*1000);
+  const end = endDate.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+  const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Wishlist//EN\nBEGIN:VEVENT\nUID:${id}@wishlist.app\nDTSTAMP:${start}\nDTSTART:${start}\nDTEND:${end}\nSUMMARY:${e.title}\nLOCATION:${e.location}\nDESCRIPTION:From Wishlist\nEND:VEVENT\nEND:VCALENDAR`;
+  try {
+    const blob = new Blob([ics], { type: 'text/calendar' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = e.title.replace(/[^a-z0-9]/gi,'_') + '.ics';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast('Calendar file downloaded');
+  } catch (err) {
+    toast('Calendar export ready (mock)');
+  }
+}
+
+// ============== PAGE: WISHLIST ==============
+function pageWishlist() {
+  const allMine = STATE.gifts.filter(g => !g.ownerId);
+  const wanted = allMine.filter(g => !g.receivedFrom);
+  const received = allMine.filter(g => g.receivedFrom);
+  const linkedTo = (gid) => STATE.events.filter(e => !e.isInvite && e.giftIds.includes(gid));
+  let list = wanted;
+  if (STATE.wishFilter === 'linked') list = wanted.filter(g => linkedTo(g.id).length > 0);
+  if (STATE.wishFilter === 'unlinked') list = wanted.filter(g => linkedTo(g.id).length === 0);
+
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">My <em>Wishlist</em></h1>
+        <p class="subtitle">${wanted.length} wanted · ${received.length} received</p>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" onclick="openAddGift()">+ Add gift</button>
+        <button class="btn-sm ${STATE.wishFilter==='all'?'active':''}" onclick="setFilter('all')">All</button>
+        <button class="btn-sm ${STATE.wishFilter==='linked'?'active':''}" onclick="setFilter('linked')">Linked</button>
+        <button class="btn-sm ${STATE.wishFilter==='unlinked'?'active':''}" onclick="setFilter('unlinked')">Unlinked</button>
+      </div>
+    </header>
+    <div class="content">
+      ${wanted.length === 0 && received.length === 0
+        ? `<div class="empty"><h3>Nothing here yet</h3><p>Add gifts to surface them in events.</p><button class="btn-ghost" onclick="openAddGift()">+ Add gift</button></div>`
+        : ''}
+      ${list.length ? `
+        <div class="section-label">Wanted</div>
+        <div class="card-stack">${list.map(g => {
+          const linked = linkedTo(g.id);
+          const tags = linked.length ? linked.map(e => `<span class="tag linked">${esc(e.type)}</span>`).join('') : '<span class="tag">Unlinked</span>';
+          return `
+            <div class="card clickable gc" onclick="openEditGift('${g.id}')">
+              <div class="gimg">${g.icon}</div>
+              <div class="ginfo">
+                <h3>${esc(g.name)}</h3>
+                <p>${esc(g.desc)}${linked.length ? ' Linked to ' + esc(linked.map(e=>e.title).join(', ')) + '.' : ''}</p>
+                <div class="tags">${tags}</div>
+              </div>
+              <div class="gprice"><div class="gprice-amount">≈ A$${g.price}</div></div>
+            </div>`;
+        }).join('')}</div>
+      ` : (wanted.length ? `<div class="empty"><h3>No matches</h3><p>Try a different filter.</p></div>` : '')}
+      ${received.length ? `
+        <div class="section-label" style="margin-top:1.75rem">Received · gifts you've been given</div>
+        <div class="card-stack">${received.map(g => {
+          const fromEvent = getEvent(g.receivedFrom);
+          return `
+            <div class="card gc received">
+              <div class="gimg">${g.icon}</div>
+              <div class="ginfo">
+                <h3>${esc(g.name)}</h3>
+                <p>${esc(g.fromName||'A guest')}${fromEvent ? ' · ' + esc(fromEvent.title) : ''}</p>
+                <div class="tags"><span class="tag claimed">Received ✓</span></div>
+              </div>
+              <div class="gprice"><div class="gprice-amount">A$${g.price}</div></div>
+            </div>`;
+        }).join('')}</div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function setFilter(f) { STATE.wishFilter = f; render(); }
+
+function openAddGift() {
+  showModal(`<h2>Add a gift</h2>
+    <div class="fg"><label>Title</label><input type="text" id="g-title" placeholder="e.g. Espresso machine"></div>
+    <div class="fg"><label>Description</label><textarea id="g-desc" placeholder="Where to buy, colour, size..."></textarea></div>
+    <div class="row">
+      <div class="fg"><label>Icon</label><select id="g-icon">${ICONS.map(i=>`<option>${i}</option>`).join('')}</select></div>
+      <div class="fg"><label>Price (A$)</label><input type="number" id="g-price" min="0" placeholder="120"></div>
+    </div>
+    <div class="fg"><label>Purchase link</label><input type="url" id="g-link" placeholder="https://..."></div>
+    <p style="font-size:.78rem;color:var(--ink-soft);margin-bottom:1rem">📸 Photo upload disabled — pick an icon.</p>
+    <div class="modal-actions">
+      <button class="btn" onclick="saveNewGift()">Add to wishlist</button>
+      <button class="btn-sm" onclick="closeModal()">Cancel</button>
+    </div>`);
+  setTimeout(()=>$('#g-title')?.focus(), 100);
+}
+
+function saveNewGift() {
+  const title = $('#g-title').value.trim();
+  if (!title) { toast('Title required'); return; }
+  STATE.gifts.push({
+    id: 'g' + Date.now(), name: title,
+    desc: $('#g-desc').value || '', icon: $('#g-icon').value || '🎁',
+    price: parseInt($('#g-price').value) || 0, link: $('#g-link').value || '#'
+  });
+  closeModal(); toast('Gift added'); render();
+}
+
+function openEditGift(id) {
+  const g = getGift(id);
+  if (!g) return;
+  const linked = STATE.events.filter(e => !e.isInvite && e.giftIds.includes(id));
+  const live = linked.filter(e => daysUntil(e.date) > -3 && Object.keys(e.claims||{}).length);
+  showModal(`<h2>Edit gift</h2>
+    ${live.length ? `<div class="banner warn"><strong>Live event warning.</strong> This gift is on ${live.length} active event${live.length>1?'s':''}. Invitees will be notified.</div>` : ''}
+    <div class="fg"><label>Title</label><input type="text" id="g-title" value="${esc(g.name)}"></div>
+    <div class="fg"><label>Description</label><textarea id="g-desc">${esc(g.desc)}</textarea></div>
+    <div class="row">
+      <div class="fg"><label>Icon</label><select id="g-icon">${ICONS.map(i=>`<option ${i===g.icon?'selected':''}>${i}</option>`).join('')}</select></div>
+      <div class="fg"><label>Price (A$)</label><input type="number" id="g-price" value="${g.price}"></div>
+    </div>
+    <div class="fg"><label>Purchase link</label><input type="url" id="g-link" value="${esc(g.link)}"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="saveEditedGift('${id}')">Save</button>
+      <button class="btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-sm danger" onclick="confirmDeleteGift('${id}')">Delete gift</button>
+    </div>`);
+}
+
+function saveEditedGift(id) {
+  const g = getGift(id);
+  g.name = $('#g-title').value.trim() || g.name;
+  g.desc = $('#g-desc').value;
+  g.icon = $('#g-icon').value || g.icon;
+  g.price = parseInt($('#g-price').value) || g.price;
+  g.link = $('#g-link').value || g.link;
+  closeModal(); toast('Gift updated'); render();
+}
+
+function confirmDeleteGift(id) {
+  showModal(`<h2>Delete this gift?</h2>
+    <p>If anyone claimed but didn't buy, it stays on their shopping list as a flagged ghost entry. Already-bought gifts remain.</p>
+    <div class="modal-actions">
+      <button class="btn" style="background:var(--burgundy-soft)" onclick="deleteGift('${id}')">Delete</button>
+      <button class="btn-sm" onclick="closeModal()">Cancel</button>
+    </div>`);
+}
+
+function deleteGift(id) {
+  STATE.gifts = STATE.gifts.filter(g => g.id !== id);
+  STATE.events.forEach(e => { e.giftIds = e.giftIds.filter(gid => gid !== id); });
+  closeModal(); toast('Gift deleted'); render();
+}
+
+// ============== PAGE: INVITES ==============
+function pageInvites() {
+  const all = STATE.events.filter(e => e.isInvite).sort((a,b) => a.date.localeCompare(b.date));
+  const upcoming = all.filter(e => daysUntil(e.date) > -3);
+  const past = all.filter(e => daysUntil(e.date) <= -3).reverse();
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">Your <em>Invited</em></h1>
+        <p class="subtitle">${upcoming.length} upcoming · ${past.length} past</p>
+      </div>
+    </header>
+    <div class="content">
+      ${upcoming.length === 0 && past.length === 0
+        ? `<div class="empty"><h3>No invites</h3><p>Friends' events will appear here.</p></div>`
+        : ''}
+      ${upcoming.length ? `
+        <div class="section-label">Upcoming</div>
+        <div class="card-stack">${upcoming.map(eventCard).join('')}</div>
+      ` : ''}
+      ${past.length ? `
+        <div class="section-label" style="margin-top:1.75rem">Past · tap to remove</div>
+        <div class="card-stack">${past.map(e => eventCard(e, true)).join('')}</div>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ============== PAGE: INVITE DETAIL ==============
+function pageInviteDetail() {
+  const e = getEvent(STATE.eventId);
+  if (!e) return `<div class="content"><div class="empty"><h3>Not found</h3></div></div>`;
+  const myCount = Object.values(e.claims||{}).flat().filter(c => c.userId === 'me').length;
+  const th = THEMES[e.theme] || THEMES.burgundy;
+
+  return `
+    <div class="content">
+      <div class="hero" style="background:linear-gradient(135deg, ${th.primary} 0%, ${th.deep} 100%);">
+        <h1>${esc(e.title)}</h1>
+        <div class="meta">
+          <span>◷ ${fmtDate(e.date, e.time)}</span>
+          <span>◉ ${esc(e.location)}</span>
+          <span>◇ Hosted by ${esc(e.hostName)}</span>
+          <span>⊕ ${e.giftIds.length} gifts</span>
+        </div>
+      </div>
+
+      <div class="banner"><strong>You've claimed ${myCount} gift${myCount===1?'':'s'}.</strong> The host stays blind until 3 days after the event.</div>
+
+      <div class="actions" style="margin-bottom:1.25rem">
+        ${daysUntil(e.date) > -3
+          ? `<button class="btn-sm" onclick="addToCalendar('${e.id}')">Add to calendar</button>
+             <button class="btn-sm" onclick="toast('Reported for moderation (mock)')">Report</button>`
+          : `<button class="btn-sm danger" onclick="confirmRemovePastEvent('${e.id}')">Remove from list</button>`}
+      </div>
+
+      <div class="section-label">Gift list</div>
+      <div class="card-stack">
+        ${e.giftIds.map(gid => {
+          const g = getGift(gid);
+          if (!g) return '';
+          const frac = giftFraction(e, gid);
+          const myC = myClaim(e, gid);
+          const remaining = 1 - frac;
+
+          let tag;
+          if (myC) tag = `<span class="tag claimed">You claimed (${fracLabel(myC.fraction)})</span>`;
+          else if (frac >= 0.999) tag = '<span class="tag claimed">Fully claimed</span>';
+          else if (frac > 0) tag = `<span class="tag partial">${Math.round(frac*100)}% claimed</span>`;
+          else tag = '<span class="tag">Available</span>';
+
+          const fractions = [
+            {f:1, l:'Full'}, {f:0.5, l:'1/2'}, {f:1/3, l:'1/3'},
+            {f:2/3, l:'2/3'}, {f:0.25, l:'1/4'}, {f:0.75, l:'3/4'}
+          ];
+
+          let claimUI = '';
+          if (myC) {
+            claimUI = `<div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem">
+              <button class="btn-sm" onclick="dropClaim('${e.id}','${gid}')">Drop out</button>
+              <a class="btn-sm" href="${g.link}" target="_blank" rel="noopener" style="text-decoration:none">Open retailer ↗</a>
+            </div>`;
+          } else if (frac < 0.999) {
+            const opts = fractions.filter(o => o.f <= remaining + 0.01).map(o => `
+              <button class="frac" onclick="claimGift('${e.id}','${gid}',${o.f})">${o.l}</button>
+            `).join('');
+            claimUI = `<div class="frac-opts">${opts}</div>`;
+          } else {
+            claimUI = '<p style="font-size:.8rem;color:var(--ink-soft);margin-top:.5rem">No spots left</p>';
+          }
+
+          return `
+            <div class="card gc">
+              <div class="gimg">${g.icon}</div>
+              <div class="ginfo">
+                <h3>${esc(g.name)}</h3>
+                <p>${esc(g.desc)}</p>
+                <div class="tags">${tag}</div>
+                ${claimUI}
+              </div>
+              <div class="gprice"><div class="gprice-amount">≈ A$${g.price}</div></div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function claimGift(eventId, giftId, fraction) {
+  const e = getEvent(eventId);
+  if (!e) return;
+  e.claims = e.claims || {};
+  const existing = e.claims[giftId] || [];
+  e.claims[giftId] = existing;
+  existing.push({ userId:'me', fraction, bought:false });
+  const total = giftFraction(e, giftId);
+
+  if (existing.length > 1 && total >= 0.999) {
+    const other = existing.find(c => c.userId !== 'me');
+    const otherName = other && other.userId === 'maddy' ? 'Maddy J.' : 'A fellow guest';
+    showModal(`<h2>Chip-in match found</h2>
+      <p>You've completed this gift with another guest. Reach out to sort who buys and brings it.</p>
+      <div class="contact-row">
+        <strong>${otherName}</strong>
+        📧 maddy@example.com<br>
+        📱 +61 4XX XXX XXX
+      </div>
+      <p style="font-size:.82rem;color:var(--ink-soft)">Once one of you marks it bought, the other is notified.</p>
+      <div class="modal-actions"><button class="btn" onclick="closeModal()">Got it</button></div>`);
+    STATE.notifs.unshift({ id:'n'+Date.now(), title:'Chip-in match completed', meta:'Just now', read:false });
+  } else {
+    toast(fraction === 1 ? 'Claimed — added to shopping list' : `Claimed ${fracLabel(fraction)} — waiting for chip-in partner`);
+  }
+  render();
+}
+
+function dropClaim(eventId, giftId) {
+  const e = getEvent(eventId);
+  if (!e) return;
+  e.claims[giftId] = (e.claims[giftId] || []).filter(c => c.userId !== 'me');
+  if (e.claims[giftId].length === 0) delete e.claims[giftId];
+  toast('Claim released');
+  render();
+}
+
+function markBought(eventId, giftId) {
+  const e = getEvent(eventId);
+  const claim = (e.claims[giftId] || []).find(c => c.userId === 'me');
+  if (claim) claim.bought = true;
+  toast('Marked bought');
+  render();
+}
+
+function markThanked() { toast('Thanked ✓'); }
+
+// ============== PAGE: SHOPPING ==============
+function pageShopping() {
+  const items = [];
+  STATE.events.filter(e => e.isInvite).forEach(e => {
+    Object.entries(e.claims || {}).forEach(([gid, claims]) => {
+      claims.filter(c => c.userId === 'me').forEach(c => {
+        const g = getGift(gid);
+        if (g) items.push({ event: e, gift: g, claim: c });
+      });
+    });
+  });
+
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">Shopping <em>List</em></h1>
+        <p class="subtitle">${items.length} items · ${items.filter(i=>!i.claim.bought).length} to buy · ${items.filter(i=>i.claim.bought).length} bought</p>
+      </div>
+    </header>
+    <div class="content">
+      ${items.length === 0
+        ? `<div class="empty"><h3>Nothing committed yet</h3><p>Claim gifts on your invites.</p><button class="btn-ghost" onclick="navTo('invites')">View invites</button></div>`
+        : `<div class="card-stack">${items.map(it => {
+          const fl = it.claim.fraction === 1 ? 'Full claim' : `${fracLabel(it.claim.fraction)} (chip in)`;
+          return `
+            <div class="card gc" style="${it.claim.bought?'opacity:.7':''}">
+              <div class="gimg">${it.gift.icon}</div>
+              <div class="ginfo">
+                <h3>${esc(it.gift.name)}</h3>
+                <p>For ${esc(it.event.title)} — ${fmtDate(it.event.date)}.</p>
+                <div class="tags">
+                  <span class="tag ${it.claim.bought?'claimed':'partial'}">${fl}</span>
+                  ${it.claim.bought ? '<span class="tag claimed">Bought ✓</span>' : ''}
+                </div>
+                ${!it.claim.bought ? `<div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem">
+                  <button class="btn-sm" onclick="markBought('${it.event.id}','${it.gift.id}')">Mark bought</button>
+                  <button class="btn-sm danger" onclick="dropClaim('${it.event.id}','${it.gift.id}')">Drop out</button>
+                </div>` : ''}
+              </div>
+              <div class="gprice"><div class="gprice-amount">A$${it.gift.price}</div></div>
+            </div>`;
+        }).join('')}</div>`}
+    </div>
+  `;
+}
+
+// ============== PAGE: SETTINGS ==============
+function pageSettings() {
+  const items = [
+    { k:'account', icon:'◉', label:'Account', value: STATE.user.name + ' · ' + STATE.user.email },
+    { k:'theme', icon:'◐', label:'Appearance & theme', value: (document.documentElement.classList.contains('dark-mode')?'Dark':'Light') + ' · ' + STATE.theme.charAt(0).toUpperCase() + STATE.theme.slice(1) },
+    { k:'notifications', icon:'♪', label:'Notifications', value: Object.values(STATE.prefs).filter(v=>v).length + ' of ' + Object.keys(STATE.prefs).length + ' enabled' },
+    { k:'sharing', icon:'☎', label:'Contact sharing', value: Object.values(STATE.contact).filter(v=>v).length + ' methods enabled' },
+    { k:'subscription', icon:'★', label:'Subscription', value: 'Unlimited · A$4.99/mo' }
+  ];
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title"><em>Settings</em></h1>
+        <p class="subtitle">Tap any option to edit</p>
+      </div>
+    </header>
+    <div class="content">
+      <div class="settings-list">
+        ${items.map(it => `
+          <div class="settings-row" onclick="openSettingsDetail('${it.k}')">
+            <span class="settings-ic">${it.icon}</span>
+            <div class="settings-text">
+              <div class="settings-label">${it.label}</div>
+              <div class="settings-value">${esc(it.value)}</div>
+            </div>
+            <span class="settings-arrow">›</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-top:2rem;padding-top:1.25rem;border-top:1px solid var(--cream-dark)">
+        <button class="btn-sm danger" onclick="confirmDeleteAccount()">Delete account</button>
+        <p style="font-size:.75rem;color:var(--ink-soft);margin-top:.5rem">Claimed-not-bought gifts return to event pools.</p>
+      </div>
+    </div>
+  `;
+}
+
+function openSettingsDetail(k) {
+  // Snapshot current state into a draft so Cancel can discard
+  STATE.settingsDraft = {
+    section: k,
+    user: { ...STATE.user },
+    prefs: { ...STATE.prefs },
+    contact: { ...STATE.contact },
+    theme: STATE.theme,
+    dark: document.documentElement.classList.contains('dark-mode')
+  };
+  STATE.page = 'settingsDetail';
+  render();
+}
+
+function cancelSettingsDetail() {
+  const d = STATE.settingsDraft;
+  if (!d) { STATE.page = 'settings'; render(); return; }
+  // Revert any live changes (theme/dark mode might have been applied for preview)
+  if (d.theme !== STATE.theme || d.dark !== document.documentElement.classList.contains('dark-mode')) {
+    if (d.dark) document.documentElement.classList.add('dark-mode');
+    else document.documentElement.classList.remove('dark-mode');
+    applyTheme(d.theme);
+  }
+  STATE.settingsDraft = null;
+  STATE.page = 'settings';
+  render();
+  toast('Changes discarded');
+}
+
+function saveSettingsDetail() {
+  const d = STATE.settingsDraft;
+  if (!d) return;
+  const k = d.section;
+  if (k === 'account') {
+    const name = $('#sd-name').value.trim();
+    const email = $('#sd-email').value.trim();
+    if (!name) { toast('Name required'); return; }
+    if (!email) { toast('Email required'); return; }
+    STATE.user.name = name;
+    STATE.user.email = email;
+    STATE.user.region = $('#sd-region').value;
+    STATE.user.currency = $('#sd-currency').value;
+  }
+  // Theme, prefs, contact already committed live by the toggles — no extra save needed
+  STATE.settingsDraft = null;
+  STATE.page = 'settings';
+  render();
+  toast('Changes saved');
+}
+
+function pageSettingsDetail() {
+  const d = STATE.settingsDraft;
+  if (!d) { STATE.page = 'settings'; render(); return ''; }
+  const k = d.section;
+  const titles = { account:'Account', theme:'Appearance & theme', notifications:'Notifications', sharing:'Contact sharing', subscription:'Subscription' };
+
+  let body = '';
+  if (k === 'account') {
+    body = `
+      <div class="fg"><label>Display name</label><input type="text" id="sd-name" value="${esc(STATE.user.name)}"></div>
+      <div class="fg"><label>Email</label><input type="email" id="sd-email" value="${esc(STATE.user.email)}"></div>
+      <div class="row">
+        <div class="fg"><label>Region</label><select id="sd-region">
+          ${[['AU','Australia'],['UK','UK'],['US','USA'],['NZ','NZ']].map(([v,l])=>`<option value="${v}" ${STATE.user.region===v?'selected':''}>${l}</option>`).join('')}
+        </select></div>
+        <div class="fg"><label>Currency</label><select id="sd-currency">
+          ${[['AUD','AUD'],['GBP','GBP'],['USD','USD'],['NZD','NZD']].map(([v,l])=>`<option value="${v}" ${STATE.user.currency===v?'selected':''}>${l}</option>`).join('')}
+        </select></div>
+      </div>`;
+  }
+  if (k === 'theme') {
+    const swatches = [
+      {k:'burgundy'},{k:'sage'},{k:'brass'},{k:'navy'},{k:'rose'},{k:'ink'},
+      {k:'lilac',g:'linear-gradient(135deg,#d4a8c8,#a878b0)'},
+      {k:'sand',g:'linear-gradient(135deg,#8b7d6b,#c9b89a)'}
+    ];
+    const isDark = document.documentElement.classList.contains('dark-mode');
+    body = `
+      <h3 style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;margin-bottom:.75rem">Appearance</h3>
+      <div class="mode-toggle">
+        <button class="mode-btn ${!isDark?'active':''}" onclick="setColorMode('light')">
+          <span class="mode-ic">☀</span>Light
+        </button>
+        <button class="mode-btn ${isDark?'active':''}" onclick="setColorMode('dark')">
+          <span class="mode-ic">☾</span>Dark
+        </button>
+      </div>
+      <p style="color:var(--ink-soft);font-size:.82rem;margin:.85rem 0 1.5rem">Light is a Santa-letter notepad. Dark is an architect's blueprint.</p>
+
+      <h3 style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:500;margin-bottom:.75rem">Theme colour</h3>
+      <p style="color:var(--ink-soft);font-size:.84rem;margin-bottom:.75rem">Changes apply live for preview. Cancel to revert.</p>
+      <div class="swatches">
+        ${swatches.map(s => {
+          const bg = s.g || `linear-gradient(135deg, ${THEMES[s.k].primary}, ${THEMES[s.k].soft})`;
+          return `<div class="sw ${STATE.theme===s.k?'sel':''}" style="background:${bg}" onclick="selectPersonalTheme('${s.k}')"></div>`;
+        }).join('')}
+      </div>`;
+  }
+  if (k === 'notifications') {
+    const rows = [
+      ['invite','New invite received','Email + in-app + push'],
+      ['eventChange','Event details changed','Date, time, location'],
+      ['giftEdit',"Gift you've claimed was edited",'Tone shifts if already bought'],
+      ['chipin','Chip-in match completed','Contact details shared'],
+      ['autoRelease','Partial claim auto-release','7 days before event'],
+      ['approaching','Event approaching','1 week and 1 day before'],
+      ['reveal','Reveal unlocked','3 days post-event'],
+      ['cohost','Co-host activity digest','Daily summary']
+    ];
+    body = `
+      <p style="color:var(--ink-soft);font-size:.88rem;margin-bottom:.75rem">Toggle each notification you want to receive.</p>
+      ${rows.map(([rk,title,desc]) => `
+        <div class="toggle-row">
+          <div class="info"><strong>${title}</strong><p>${desc}</p></div>
+          <div class="toggle ${STATE.prefs[rk]?'on':''}" onclick="togglePref('${rk}')"></div>
+        </div>`).join('')}`;
+  }
+  if (k === 'sharing') {
+    const rows = [
+      ['email','Email', STATE.user.email],
+      ['phone','Phone','+61 4XX XXX XXX'],
+      ['instagram','Instagram','@anthop'],
+      ['facebook','Facebook','Not connected']
+    ];
+    body = `
+      <p style="color:var(--ink-soft);font-size:.88rem;margin-bottom:.75rem">Shared when chip-in matches complete. Override per claim.</p>
+      ${rows.map(([rk,title,desc]) => `
+        <div class="toggle-row">
+          <div class="info"><strong>${title}</strong><p>${esc(desc)}</p></div>
+          <div class="toggle ${STATE.contact[rk]?'on':''}" onclick="toggleContact('${rk}')"></div>
+        </div>`).join('')}`;
+  }
+  if (k === 'subscription') {
+    body = `
+      <div class="subscription-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;gap:.75rem">
+          <div>
+            <div class="tier-pill paid">Unlimited</div>
+            <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-top:.5rem;font-weight:500">Unlimited</h4>
+          </div>
+          <div style="font-family:'Fraunces',serif;font-size:1.75rem;color:var(--burgundy)">A$4.99<span style="font-size:.75rem;color:var(--ink-soft)">/mo</span></div>
+        </div>
+        <ul style="list-style:none;font-size:.88rem;color:var(--ink-soft)">
+          <li style="padding:.35rem 0">✓ Unlimited concurrent events</li>
+          <li style="padding:.35rem 0">✓ Ad-free</li>
+          <li style="padding:.35rem 0">✓ Custom themes, fonts, animated backgrounds</li>
+          <li style="padding:.35rem 0">✓ Past-gift analytics</li>
+          <li style="padding:.35rem 0">✓ Priority support</li>
+        </ul>
+      </div>
+      <p style="font-size:.78rem;color:var(--ink-soft);margin-top:1rem">Showcase build — all features unlocked. No changes to save.</p>`;
+  }
+
+  // Subscription has nothing to save/cancel, so different footer
+  const footer = k === 'subscription'
+    ? `<div class="settings-detail-footer"><button class="btn btn-full" onclick="cancelSettingsDetail()">Done</button></div>`
+    : `<div class="settings-detail-footer">
+        <button class="btn btn-full" onclick="saveSettingsDetail()">Save changes</button>
+        <button class="btn-sm" onclick="cancelSettingsDetail()" style="margin-top:.6rem">Cancel</button>
+      </div>`;
+
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title"><em>${titles[k]}</em></h1>
+      </div>
+    </header>
+    <div class="content">
+      <div class="settings-detail-body">${body}</div>
+      ${footer}
+    </div>
+  `;
+}
+
+function saveAccount() {
+  // Legacy — kept for safety but no longer wired
+  STATE.user.name = $('#s-name')?.value || STATE.user.name;
+  STATE.user.email = $('#s-email')?.value || STATE.user.email;
+  toast('Account saved'); render();
+}
+
+function selectPersonalTheme(k) {
+  applyTheme(k);
+  render();
+}
+
+function setColorMode(mode) {
+  if (mode === 'dark') document.documentElement.classList.add('dark-mode');
+  else document.documentElement.classList.remove('dark-mode');
+  applyTheme(STATE.theme);
+  render();
+}
+
+function togglePref(k) { STATE.prefs[k] = !STATE.prefs[k]; render(); }
+function toggleContact(k) { STATE.contact[k] = !STATE.contact[k]; render(); }
+
+function confirmDeleteAccount() {
+  showModal(`<h2>Delete account?</h2>
+    <p>Wishlist deleted. Hosted events cancelled, invitees notified. Claimed-not-bought gifts return to pools. Already-bought prompts keep-or-release.</p>
+    <p style="color:var(--burgundy-soft);font-weight:500">This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn" style="background:var(--burgundy-soft)" onclick="closeModal();toast('Mock only — use Reset')">Delete</button>
+      <button class="btn-sm" onclick="closeModal()">Cancel</button>
+    </div>`);
+}
+
+// ============== PAGE: HOWTO ==============
+function pageHowto() {
+  const steps = [
+    { n:'i.', t:'Build your wishlist', p:"Add gifts you'd love to receive. Each sits in your wishlist independently.",
+      li:['Title, icon, link, price','One gift can link to many events'] },
+    { n:'ii.', t:'Create an event', p:"Title, date, location, invitees. Pick which gifts to surface.",
+      li:['Privacy: direct · +1 · open link','Theme: colour palette for guests'] },
+    { n:'iii.', t:'Invitees claim gifts', p:"Guests open the invite, claim full or chip in for halves, thirds, quarters.",
+      li:['Buying happens off-site','Chip-in matches connect via shared contacts','Auto-release 7 days before event'] },
+    { n:'iv.', t:'Host stays blind', p:"You see counts only. Three days after the event, reveal unlocks.",
+      li:['Pre-event: count only','Day 3+: full reveal, mark thanks','Archives after 3 months'] },
+    { n:'v.', t:'Free vs paid', p:"Free gives you the full flow with 2 events and ads. Paid unlocks the rest.",
+      li:['No payment fees on gifts','Stripe handles subscription only','Cancel any time'] }
+  ];
+  return `
+    <header class="hdr">
+      <div class="hdr-content">
+        <h1 class="title">How it <em>works</em></h1>
+        <p class="subtitle">The four-minute version</p>
+      </div>
+    </header>
+    <div class="content">
+      ${steps.map(s => `
+        <div class="howto-step">
+          <div class="howto-num">${s.n}</div>
+          <div class="howto-content">
+            <h3>${s.t}</h3>
+            <p>${s.p}</p>
+            <ul>${s.li.map(x => `<li>${x}</li>`).join('')}</ul>
+          </div>
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+// ============== NAV / RENDER ==============
+function navTo(page) {
+  if (STATE.page !== page) STATE.history.push(STATE.page);
+  STATE.page = page;
+  render();
+  $('.main').scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function goBack() {
+  // From settings detail, top-bar back acts like Cancel — discards changes
+  if (STATE.page === 'settingsDetail') {
+    cancelSettingsDetail();
+    return;
+  }
+  if (STATE.history.length > 0) {
+    STATE.page = STATE.history.pop();
+    render();
+    $('.main').scrollTo({ top: 0, behavior: 'auto' });
+  } else {
+    navTo('home');
+  }
+}
+
+function openEvent(id) {
+  const e = getEvent(id);
+  if (!e) return;
+  STATE.history.push(STATE.page);
+  STATE.eventId = id;
+  STATE.page = e.isInvite ? 'inviteDetail' : 'eventDetail';
+  render();
+  $('.main').scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function render() {
+  let html;
+  switch (STATE.page) {
+    case 'home': html = pageHome(); break;
+    case 'events': html = pageEvents(); break;
+    case 'eventDetail': html = pageEventDetail(); break;
+    case 'createEvent': html = pageCreateEvent(); break;
+    case 'editEvent': html = pageCreateEvent(STATE.eventId); break;
+    case 'wishlist': html = pageWishlist(); break;
+    case 'invites': html = pageInvites(); break;
+    case 'inviteDetail': html = pageInviteDetail(); break;
+    case 'shopping': html = pageShopping(); break;
+    case 'howto': html = pageHowto(); break;
+    case 'settings': html = pageSettings(); break;
+    case 'settingsDetail': html = pageSettingsDetail(); break;
+    default: html = pageHome();
+  }
+  $('#page').innerHTML = html;
+  renderTabbar();
+  renderNotifs();
+}
+
+// ============== MORE MENU ==============
+function openMoreMenu() {
+  const userInitial = STATE.user.name.charAt(0);
+  $('#more-content').innerHTML = `
+    <div style="display:flex;align-items:center;gap:.85rem;padding:.5rem .5rem 1.25rem;border-bottom:1px solid var(--cream-dark);margin-bottom:.5rem">
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brass),var(--burgundy));display:flex;align-items:center;justify-content:center;color:var(--paper);font-family:'Fraunces',serif;font-size:1.1rem;font-weight:600">${userInitial}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:500">${esc(STATE.user.name)}</div>
+        <div class="tier-pill paid" style="margin-top:.2rem">Unlimited</div>
+      </div>
+    </div>
+    <div class="drawer-item" onclick="closeMoreMenu();navTo('settings')">
+      <span class="ic">⚙</span><span class="label">Settings</span><span class="arrow">›</span>
+    </div>
+    <div class="drawer-item" onclick="closeMoreMenu();navTo('howto')">
+      <span class="ic">?</span><span class="label">How it works</span><span class="arrow">›</span>
+    </div>
+    <div class="drawer-item" onclick="closeMoreMenu();toast('Help centre opening (mock)')">
+      <span class="ic">✉</span><span class="label">Help & support</span><span class="arrow">›</span>
+    </div>
+    <div class="drawer-item" onclick="closeMoreMenu();goToLogin()">
+      <span class="ic">→</span><span class="label">Sign out</span><span class="arrow">›</span>
+    </div>
+  `;
+  $('#more-drawer-bg').style.display = 'flex';
+  STATE.moreOpen = true;
+}
+
+function closeMoreMenu() {
+  $('#more-drawer-bg').style.display = 'none';
+  STATE.moreOpen = false;
+}
+
+// ============== NOTIFS ==============
+function toggleNotifs() {
+  STATE.notifsOpen = !STATE.notifsOpen;
+  $('#notif-panel').classList.toggle('open', STATE.notifsOpen);
+  if (STATE.notifsOpen) {
+    setTimeout(() => {
+      STATE.notifs.forEach(n => n.read = true);
+      renderTabbar();
+      renderNotifs();
+    }, 1200);
+  }
+}
+
+function renderNotifs() {
+  const el = $('#notif-list');
+  if (!el) return;
+  el.innerHTML = STATE.notifs.length === 0
+    ? '<div style="padding:2rem 1.5rem;color:var(--ink-soft);text-align:center">No notifications</div>'
+    : STATE.notifs.map(n => `<div class="notif-item ${n.read?'':'unread'}">
+        <div class="nt">${esc(n.title)}</div>
+        <div class="nm">${esc(n.meta)}</div>
+      </div>`).join('');
+}
+
+// ============== MODAL / TOAST ==============
+function showModal(html) {
+  $('#modal-content').innerHTML = html;
+  $('#modal').classList.add('active');
+}
+function closeModal() { $('#modal').classList.remove('active'); }
+
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ============== ENTER ==============
+function enterApp() {
+  $('#login').style.display = 'none';
+  $('#app').classList.add('active');
+  seedData();
+  applyTheme('burgundy');
+  STATE.page = 'home';
+  STATE.history = [];
+  render();
+}
+
+function goToLogin() {
+  closeMoreMenu();
+  $('#app').classList.remove('active');
+  $('#login').style.display = 'flex';
+}
+
+seedData();
+</script>
+</body>
+</html>
